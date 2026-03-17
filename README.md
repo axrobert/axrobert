@@ -40,7 +40,7 @@
     SQL - MySQL do Básico ao avançado
     <br>
     <a href="https://www.udemy.com/certificate/UC-617eb56e-2a47-4315-ae81-f21d7c7c11d6/"><img src="https://github.com/Harlocks/design/blob/main/assets/thirdIcons/starIcon16px.png?raw=true"></a>
-    Docker para Desenvoldores - com Docker Swarm e Kubernetes
+    Docker para Desenvolvedores - com Docker Swarm e Kubernetes
     <br>
     <a href="https://www.udemy.com/certificate/UC-BQ9AEU2Z/"><img src="https://github.com/Harlocks/design/blob/main/assets/thirdIcons/starIcon16px.png?raw=true"></a>
     Computação em Nuvem AWS - 2019
