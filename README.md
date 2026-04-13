@@ -108,7 +108,7 @@ A maioria do design, estrutura e artes neste repositório foram criados por mim 
 
 ### 📊 Minhas Estatísticas de Código (WakaTime)
 
-<img src="wakatime/stats.svg?v=20260413" height="320" alt="WakaTime Stats - axrobert"/>
+<img src="wakatime/stats.svg?v=1" height="460" alt="WakaTime Stats - axrobert"/>
 
 <!-- <p align="center">
     <img src="https://github.com/Harlocks/keypirinha/blob/main/assets/images/separatorCircle.png?raw=true">
