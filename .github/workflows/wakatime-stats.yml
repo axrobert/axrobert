@@ -2,7 +2,7 @@ name: Update WakaTime Stats SVG - axrobert
 
 on:
   schedule:
-    - cron: "0 * * * *"
+    - cron: "0 */6 * * *"    # Atualiza a cada 6 horas (mude para "0 * * * *" se quiser a cada 1 hora)
   workflow_dispatch:
 
 permissions:
@@ -16,14 +16,14 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Generate SVG from Vercel API
+      - name: Generate SVG - All Languages Bar Vertical
         env:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
           mkdir -p wakatime
-          curl -fsSL "https://wakatime-readme-stats.vercel.app/api/wakatimeStats?username=$GITHUB_ACTOR&api_key=$WAKATIME_API_KEY&github_token=$GITHUB_TOKEN&components=2&theme=dark&bg_color=0d1117&title_color=58a6ff&text_color=8b949e&logo_color=58a6ff&border_color=30363d&border_radius=16&component1_type=weekly_avg&component1_chart_type=radar&component1_scale_value=1.4&component2_type=heatmap" \
+          curl -fsSL "https://wakatime-readme-stats.vercel.app/api/wakatimeStats?username=$GITHUB_ACTOR&api_key=$WAKATIME_API_KEY&github_token=$GITHUB_TOKEN&components=1&theme=dark&bg_color=0d1117&title_color=58a6ff&text_color=8b949e&logo_color=58a6ff&border_color=30363d&border_radius=16&component1_type=all_langs&component1_chart_type=bar_vertical&component1_num_langs=10" \
             -o wakatime/stats.svg
 
       - name: Bump README cache-buster
@@ -40,5 +40,5 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add wakatime/stats.svg README.md
           git diff --cached --quiet && echo "No changes" && exit 0
-          git commit -m "Update WakaTime stats SVG (cache-bust v=$(date -u +%Y%m%d))"
+          git commit -m "Update WakaTime All Languages Bar Vertical (cache-bust v=$(date -u +%Y%m%d))"
           git push
