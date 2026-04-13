@@ -35,12 +35,12 @@ jobs:
           curl -fsSL "https://wakatime-readme-stats.vercel.app/api/wakatimeStats?username=$GITHUB_ACTOR&api_key=$WAKATIME_API_KEY&component1_type=spedometer&theme=dark&bg_color=0d1117&title_color=58a6ff&text_color=8b949e&logo_color=58a6ff&border_color=30363d&border_radius=16" \
             -o wakatime/spedometer.svg
 
-      # 3. Weekly Ranking - Achatado e largo (sem cortar)
-      - name: Weekly Ranking (achatado)
+      # 3. Weekly Ranking - tamanho padrão (mais natural)
+      - name: Weekly Ranking
         env:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
         run: |
-          curl -fsSL "https://wakatime-readme-stats.vercel.app/api/wakatimeStats?username=$GITHUB_ACTOR&api_key=$WAKATIME_API_KEY&component1_type=rank&component1_mode=level&component1_show_icons=true&component1_scale_value=1.45&theme=dark&bg_color=0d1117&title_color=58a6ff&text_color=8b949e&logo_color=58a6ff&border_color=30363d&border_radius=16&title_prefix=Weekly%20Ranking" \
+          curl -fsSL "https://wakatime-readme-stats.vercel.app/api/wakatimeStats?username=$GITHUB_ACTOR&api_key=$WAKATIME_API_KEY&component1_type=rank&component1_mode=level&component1_show_icons=true&theme=dark&bg_color=0d1117&title_color=58a6ff&text_color=8b949e&logo_color=58a6ff&border_color=30363d&border_radius=16&title_prefix=Weekly%20Ranking" \
             -o wakatime/weekly_ranking.svg
 
       - name: Cache Buster
