@@ -108,11 +108,11 @@ A maioria do design, estrutura e artes neste repositório foram criados por mim 
 
 ### 📊 Minhas Estatísticas de Código (WakaTime)
 
-<img src="wakatime/all_langs_bar.svg?v=1" height="520" alt="Linguagens"/>
+<img src="wakatime/all_langs_bar.svg?v=202604132347" height="520" alt="Linguagens"/>
 
 <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
-  <img src="wakatime/spedometer.svg?v=1" height="280" alt="Spedometer"/>
-  <img src="wakatime/rank.svg?v=1" height="195" alt="Ranking"/>
+  <img src="wakatime/spedometer.svg?v=202604132347" height="280" alt="Spedometer"/>
+  <img src="wakatime/rank.svg?v=202604132347" height="195" alt="Ranking"/>
 </div>
 
 
