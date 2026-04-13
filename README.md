@@ -107,13 +107,13 @@ A maioria do design, estrutura e artes neste repositório foram criados por mim 
 <img align="center" src="https://github.com/Harlocks/design/blob/main/assets/inkscape/separators/Line.png?raw=true">
 
 ### 📊 Minhas Estatísticas de Código (WakaTime)
-
-<img src="wakatime/all_langs_bar.svg?v=202604132352" height="500" width="300" alt="Linguagens"/>
+<img src="wakatime/all_langs_bar.svg?v=202604132316" height="700" width="1200" alt="Linguagens - axrobert"/>
 
 <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
-  <img src="wakatime/spedometer.svg?v=202604132352" height="280" alt="Spedometer"/>
-  <img src="wakatime/rank.svg?v=202604132352" height="195" alt="Ranking"/>
+    <img src="wakatime/spedometer.svg?v=202604132316" height="290" width="400" alt="Spedometer"/>
+    <img src="wakatime/weekly_ranking.svg?v=202604132316" height="350" width="400" alt="Weekly Ranking"/> <!-- altura reduzida -->
 </div>
+ 
 
 
 <!-- <p align="center">
