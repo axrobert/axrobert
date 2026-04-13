@@ -108,14 +108,12 @@ A maioria do design, estrutura e artes neste repositório foram criados por mim 
 
 ### 📊 Minhas Estatísticas de Código (WakaTime)
 
-<!-- Barras bem grandes e esticadas -->
-<img src="wakatime/all_langs.svg?v=1" height="520" alt="Linguagens"/>
+<img src="wakatime/all_langs.svg?v=1" height="520" width="1200" alt="Linguagens"/>
 
 <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
-  <img src="wakatime/spedometer.svg?v=1" height="260" alt="Spedometer"/>
-  <img src="wakatime/weekly_rank.svg?v=1" height="260" alt="Weekly Ranking"/>
+  <img src="wakatime/spedometer.svg?v=1" height="280" alt="Spedometer"/>
+  <img src="wakatime/weekly.svg?v=1" height="280" alt="Weekly Stats"/>
 </div>
-
 <!-- <p align="center">
     <img src="https://github.com/Harlocks/keypirinha/blob/main/assets/images/separatorCircle.png?raw=true">
     <a>Fundamentos da Programação</a>
