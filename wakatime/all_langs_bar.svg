@@ -1,10 +1,10 @@
 
-<svg width="588" height="394.5" xmlns="http://www.w3.org/2000/svg" style="font-family:Calibri,sans-serif;">
+<svg width="588" height="831.9000000000001" xmlns="http://www.w3.org/2000/svg" style="font-family:Calibri,sans-serif;">
   <rect
     x="1"
     y="1"
     width="586"
-    height="392.5"
+    height="829.9000000000001"
     fill="#0d1117"
     stroke="#30363d"
     stroke-width="2"
@@ -12,7 +12,7 @@
     ry="0"
   />
   
-  <g transform="translate(0, 10) scale(1)">
+  <g transform="translate(-352.80000000000007, 10) scale(2.2)">
       <text font-family="Calibri" x="290" y="22.5" font-size="12" text-anchor="middle" fill="#8b949e" font-weight="bold">I mostly code in JavaScript</text>
       <text font-family="Calibri" x="67" y="55.5" font-size="10" text-anchor="end" fill="#8b949e">JavaScript</text>
 <rect x="75" y="46.5" width="430" height="12" fill="#9c8f80" rx="2" ry="2" />
