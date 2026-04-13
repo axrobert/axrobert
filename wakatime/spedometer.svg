@@ -1,0 +1,111 @@
+
+<svg width="350" height="290" xmlns="http://www.w3.org/2000/svg" style="font-family:Calibri,sans-serif;">
+  <rect
+    x="1"
+    y="1"
+    width="348"
+    height="288"
+    fill="#0d1117"
+    stroke="#30363d"
+    stroke-width="2"
+    rx="16"
+    ry="16"
+  />
+  
+  <g transform="translate(25, 10) scale(1)">
+      <svg width="300" height="260" viewBox="0 0 300 260" xmlns="http://www.w3.org/2000/svg">
+        <text x="50%" y="22" text-anchor="middle" font-size="14" fill="#8b949e" font-family="Calibri">
+          <tspan font-weight="bold">0 hrs 43 mins</tspan>
+          <tspan font-weight="normal"> Today</tspan>
+        </text>
+        
+    <g transform="rotate(-90, 150, 160)">
+      
+        <path
+          d="M 150 80 A 80 80 0 0 1 197.02282018339787 95.2786404500042"
+          stroke="rgba(157,144,129,0.10)"
+          stroke-width="45"
+          fill="none"
+        />
+        <path id="arcLabel-0" d="M 150 50 A 110 110 0 0 1 214.65637775217203 71.00813061875579" fill="none" />
+        <text font-size="10" fill="#8b949e" font-family="Calibri">
+          <textPath href="#arcLabel-0" startOffset="50%" text-anchor="middle">Poor</textPath>
+        </text>
+      
+
+        <path
+          d="M 197.02282018339787 95.2786404500042 A 80 80 0 0 1 226.0845213036123 135.27864045000422"
+          stroke="rgba(146,131,115,0.33)"
+          stroke-width="45"
+          fill="none"
+        />
+        <path id="arcLabel-1" d="M 214.65637775217203 71.00813061875579 A 110 110 0 0 1 254.6162167924669 126.00813061875579" fill="none" />
+        <text font-size="10" fill="#8b949e" font-family="Calibri">
+          <textPath href="#arcLabel-1" startOffset="50%" text-anchor="middle">Fair</textPath>
+        </text>
+      
+
+        <path
+          d="M 226.0845213036123 135.27864045000422 A 80 80 0 0 1 226.0845213036123 184.72135954999578"
+          stroke="rgba(132,118,103,0.55)"
+          stroke-width="45"
+          fill="none"
+        />
+        <path id="arcLabel-2" d="M 254.6162167924669 126.00813061875579 A 110 110 0 0 1 254.6162167924669 193.99186938124421" fill="none" />
+        <text font-size="10" fill="#8b949e" font-family="Calibri">
+          <textPath href="#arcLabel-2" startOffset="50%" text-anchor="middle">Good</textPath>
+        </text>
+      
+
+        <path
+          d="M 226.0845213036123 184.72135954999578 A 80 80 0 0 1 197.02282018339787 224.72135954999578"
+          stroke="rgba(118,105,92,0.78)"
+          stroke-width="45"
+          fill="none"
+        />
+        <path id="arcLabel-3" d="M 254.6162167924669 193.99186938124421 A 110 110 0 0 1 214.65637775217203 248.99186938124421" fill="none" />
+        <text font-size="10" fill="#8b949e" font-family="Calibri">
+          <textPath href="#arcLabel-3" startOffset="50%" text-anchor="middle">Great</textPath>
+        </text>
+      
+
+        <path
+          d="M 197.02282018339787 224.72135954999578 A 80 80 0 0 1 150 240"
+          stroke="rgba(103,93,80,1.00)"
+          stroke-width="45"
+          fill="none"
+        />
+        <path id="arcLabel-4" d="M 214.65637775217203 248.99186938124421 A 110 110 0 0 1 150 270" fill="none" />
+        <text font-size="10" fill="#8b949e" font-family="Calibri">
+          <textPath href="#arcLabel-4" startOffset="50%" text-anchor="middle">Excellent</textPath>
+        </text>
+      
+    </g>
+  
+        
+    <polygon points="151.47442993232835,156.28165945956343 79.35152973170499,131.9858312857612 148.52557006767165,163.71834054043657" fill="#786b5d" />
+    <circle cx="150" cy="160" r="4" fill="#786b5d"/>
+  
+        
+        <g transform="translate(110, 202)">
+          
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8b949e" stroke-width="3"
+         stroke-linecap="round" stroke-linejoin="round">
+      <line x1="12" y1="19" x2="12" y2="5"></line>
+      <polyline points="5 12 12 5 19 12"></polyline>
+    </svg>
+          <text x="20" y="12" font-size="13" fill="#8b949e" font-family="Calibri">
+              260509% increase
+          </text>
+        </g>
+        <text x="50%" y="230" text-anchor="middle" font-size="13" fill="#8b949e" font-family="Calibri">
+          <tspan font-weight="bold">0 hrs 0 mins</tspan>
+          <tspan font-weight="normal"> Daily Average</tspan>
+        </text>
+        <text x="50%" y="250" text-anchor="middle" font-size="13" fill="#8b949e" font-family="Calibri">
+          <tspan font-weight="bold">N/A</tspan>
+          <tspan font-weight="normal"> Most Active Day</tspan>
+        </text>
+      </svg>
+    </g>
+</svg>
