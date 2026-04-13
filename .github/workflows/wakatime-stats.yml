@@ -18,16 +18,15 @@ jobs:
       - name: Create folder
         run: mkdir -p wakatime
 
-      # ================== BARRAS VERTICAIS (grande) ==================
-      - name: Generate All Languages Bar Vertical
+      # Barras verticais grandes
+      - name: All Languages Bar
         env:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          curl -fsSL "https://wakatime-readme-stats.vercel.app/api/wakatimeStats?username=$GITHUB_ACTOR&api_key=$WAKATIME_API_KEY&github_token=$GITHUB_TOKEN&component1_type=all_langs&component1_chart_type=bar_vertical&component1_num_langs=12&theme=dark&bg_color=0d1117&title_color=58a6ff&text_color=8b949e&logo_color=58a6ff&border_color=30363d&border_radius=0" \
+          curl -fsSL "https://wakatime-readme-stats.vercel.app/api/wakatimeStats?username=$GITHUB_ACTOR&api_key=$WAKATIME_API_KEY&component1_type=all_langs&component1_chart_type=bar_vertical&component1_num_langs=12&component1_scale_value=2.2&theme=dark&bg_color=0d1117&title_color=58a6ff&text_color=8b949e&logo_color=58a6ff&border_color=30363d&border_radius=0" \
             -o wakatime/all_langs_bar.svg
 
-      # 2. Spedometer
+      # Spedometer
       - name: Spedometer
         env:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
@@ -35,13 +34,12 @@ jobs:
           curl -fsSL "https://wakatime-readme-stats.vercel.app/api/wakatimeStats?username=$GITHUB_ACTOR&api_key=$WAKATIME_API_KEY&component1_type=spedometer&theme=dark&bg_color=0d1117&title_color=58a6ff&text_color=8b949e&logo_color=58a6ff&border_color=30363d&border_radius=0" \
             -o wakatime/spedometer.svg
 
-      # ================== RANK ==================
-      - name: Generate Rank
+      # Rank (achatado + borda reta)
+      - name: Rank (achatado)
         env:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          curl -fsSL "https://wakatime-readme-stats.vercel.app/api/wakatimeStats?username=$GITHUB_ACTOR&api_key=$WAKATIME_API_KEY&github_token=$GITHUB_TOKEN&component1_type=rank&theme=dark&bg_color=0d1117&title_color=58a6ff&text_color=8b949e&logo_color=58a6ff&border_color=30363d&border_radius=0" \
+          curl -fsSL "https://wakatime-readme-stats.vercel.app/api/wakatimeStats?username=$GITHUB_ACTOR&api_key=$WAKATIME_API_KEY&component1_type=rank&component1_mode=level&component1_show_icons=true&component1_scale_value=1.6&theme=dark&bg_color=0d1117&title_color=58a6ff&text_color=8b949e&logo_color=58a6ff&border_color=30363d&border_radius=0" \
             -o wakatime/rank.svg
 
       - name: Cache Buster
@@ -56,5 +54,5 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add wakatime/*.svg README.md
           git diff --cached --quiet && echo "No changes" && exit 0
-          git commit -m "Update Weekly Ranking mais achatado"
+          git commit -m "Fix rank card size and border"
           git push
