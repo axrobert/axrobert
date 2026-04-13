@@ -1,4 +1,4 @@
-name: Update WakaTime Stats SVG - axrobert
+name: Update WakaTime Stats - axrobert
 
 on:
   schedule:
@@ -13,50 +13,46 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Create wakatime folder
+      - name: Create folder
         run: mkdir -p wakatime
 
-      # ================== BARRAS VERTICAIS (grande) ==================
-      - name: Generate All Languages Bar Vertical
+      # 1. Barras verticais grandes (all languages)
+      - name: All Languages Bar
         env:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          curl -fsSL "https://wakatime-readme-stats.vercel.app/api/wakatimeStats?username=$GITHUB_ACTOR&api_key=$WAKATIME_API_KEY&github_token=$GITHUB_TOKEN&component1_type=all_langs&component1_chart_type=bar_vertical&component1_num_langs=12&theme=dark&bg_color=0d1117&title_color=58a6ff&text_color=8b949e&logo_color=58a6ff&border_color=30363d&border_radius=16" \
-            -o wakatime/all_langs_bar.svg
+          curl -fsSL "https://wakatime-readme-stats.vercel.app/api/wakatimeStats?username=$GITHUB_ACTOR&api_key=$WAKATIME_API_KEY&component1_type=all_langs&component1_chart_type=bar_vertical&component1_num_langs=12&theme=dark&bg_color=0d1117&title_color=58a6ff&text_color=8b949e&logo_color=58a6ff&border_color=30363d&border_radius=16" \
+            -o wakatime/all_langs.svg
 
-      # ================== SPEEDOMETER ==================
-      - name: Generate Speedometer
+      # 2. Spedometer (corrigido!)
+      - name: Spedometer
         env:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          curl -fsSL "https://wakatime-readme-stats.vercel.app/api/wakatimeStats?username=$GITHUB_ACTOR&api_key=$WAKATIME_API_KEY&github_token=$GITHUB_TOKEN&component1_type=speedometer&theme=dark&bg_color=0d1117&title_color=58a6ff&text_color=8b949e&logo_color=58a6ff&border_color=30363d&border_radius=16" \
-            -o wakatime/speedometer.svg
+          curl -fsSL "https://wakatime-readme-stats.vercel.app/api/wakatimeStats?username=$GITHUB_ACTOR&api_key=$WAKATIME_API_KEY&component1_type=spedometer&theme=dark&bg_color=0d1117&title_color=58a6ff&text_color=8b949e&logo_color=58a6ff&border_color=30363d&border_radius=16" \
+            -o wakatime/spedometer.svg
 
-      # ================== RANK ==================
-      - name: Generate Rank
+      # 3. Rank
+      - name: Rank
         env:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          curl -fsSL "https://wakatime-readme-stats.vercel.app/api/wakatimeStats?username=$GITHUB_ACTOR&api_key=$WAKATIME_API_KEY&github_token=$GITHUB_TOKEN&component1_type=rank&theme=dark&bg_color=0d1117&title_color=58a6ff&text_color=8b949e&logo_color=58a6ff&border_color=30363d&border_radius=16" \
+          curl -fsSL "https://wakatime-readme-stats.vercel.app/api/wakatimeStats?username=$GITHUB_ACTOR&api_key=$WAKATIME_API_KEY&component1_type=rank&component1_mode=level&theme=dark&bg_color=0d1117&title_color=58a6ff&text_color=8b949e&logo_color=58a6ff&border_color=30363d&border_radius=16" \
             -o wakatime/rank.svg
 
-      - name: Bump cache-buster
+      - name: Cache buster
         run: |
           V="$(date -u +%Y%m%d)"
           sed -i -E "s#(wakatime/.*\.svg)\?v=[0-9]+#\1?v=$V#g" README.md
           sed -i -E "s#(wakatime/.*\.svg)(\"|')#\1?v=$V\2#g" README.md
 
-      - name: Commit changes
+      - name: Commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add wakatime/*.svg README.md
           git diff --cached --quiet && echo "No changes" && exit 0
-          git commit -m "Update WakaTime separate SVGs (cache-bust v=$(date -u +%Y%m%d))"
+          git commit -m "Update WakaTime cards"
           git push
