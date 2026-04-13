@@ -2,7 +2,7 @@ name: Update WakaTime Stats SVG - axrobert
 
 on:
   schedule:
-    - cron: "0 */6 * * *"    # Atualiza a cada 6 horas (mude para "0 * * * *" se quiser a cada 1 hora)
+    - cron: "0 * * * *"    # Atualiza a cada 6 horas (mude para "0 * * * *" se quiser a cada 1 hora)
   workflow_dispatch:
 
 permissions:
