@@ -112,8 +112,10 @@ A maioria do design, estrutura e artes neste repositório foram criados por mim 
 
 <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
   <img src="wakatime/spedometer.svg?v=202604132323" height="290" width="400" alt="Spedometer"/>
-  <img src="wakatime/weekly_ranking.svg?v=202604132323" height="190" alt="Weekly Ranking"/>   <!-- altura reduzida -->
+  <img src="wakatime/rank.svg?v=1" height="220" alt="Ranking"/>
 </div>
+
+
 <!-- <p align="center">
     <img src="https://github.com/Harlocks/keypirinha/blob/main/assets/images/separatorCircle.png?raw=true">
     <a>Fundamentos da Programação</a>
