@@ -15,18 +15,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Create folder
+      - name: Create wakatime folder
         run: mkdir -p wakatime
 
-      # 1. Barras verticais GRANDES e esticadas
-      - name: All Languages Bar (esticado)
+      # 1. Barras verticais GRANDES e bem esticadas
+      - name: All Languages Bar Vertical (large)
         env:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
         run: |
-          curl -fsSL "https://wakatime-readme-stats.vercel.app/api/wakatimeStats?username=$GITHUB_ACTOR&api_key=$WAKATIME_API_KEY&component1_type=all_langs&component1_chart_type=bar_vertical&component1_num_langs=12&component1_scale_value=2.0&theme=dark&bg_color=0d1117&title_color=58a6ff&text_color=8b949e&logo_color=58a6ff&border_color=30363d&border_radius=16" \
+          curl -fsSL "https://wakatime-readme-stats.vercel.app/api/wakatimeStats?username=$GITHUB_ACTOR&api_key=$WAKATIME_API_KEY&component1_type=all_langs&component1_chart_type=bar_vertical&component1_num_langs=12&component1_scale_value=2.2&theme=dark&bg_color=0d1117&title_color=58a6ff&text_color=8b949e&logo_color=58a6ff&border_color=30363d&border_radius=16" \
             -o wakatime/all_langs.svg
 
-      # 2. Spedometer (velocímetro semanal)
+      # 2. Spedometer (velocímetro) - nome correto é "spedometer"
       - name: Spedometer
         env:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
@@ -34,25 +34,25 @@ jobs:
           curl -fsSL "https://wakatime-readme-stats.vercel.app/api/wakatimeStats?username=$GITHUB_ACTOR&api_key=$WAKATIME_API_KEY&component1_type=spedometer&theme=dark&bg_color=0d1117&title_color=58a6ff&text_color=8b949e&logo_color=58a6ff&border_color=30363d&border_radius=16" \
             -o wakatime/spedometer.svg
 
-      # 3. Weekly Ranking (semanal + modo stats para mostrar número)
-      - name: Weekly Rank
+      # 3. Weekly Stats (semanal)
+      - name: Weekly Stats
         env:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
         run: |
-          curl -fsSL "https://wakatime-readme-stats.vercel.app/api/wakatimeStats?username=$GITHUB_ACTOR&api_key=$WAKATIME_API_KEY&component1_type=weekly&component1_mode=stats&theme=dark&bg_color=0d1117&title_color=58a6ff&text_color=8b949e&logo_color=58a6ff&border_color=30363d&border_radius=16" \
-            -o wakatime/weekly_rank.svg
+          curl -fsSL "https://wakatime-readme-stats.vercel.app/api/wakatimeStats?username=$GITHUB_ACTOR&api_key=$WAKATIME_API_KEY&component1_type=weekly&component1_chart_type=radar&theme=dark&bg_color=0d1117&title_color=58a6ff&text_color=8b949e&logo_color=58a6ff&border_color=30363d&border_radius=16" \
+            -o wakatime/weekly.svg
 
-      - name: Cache buster
+      - name: Cache Buster
         run: |
-          V="$(date -u +%Y%m%d)"
+          V="$(date -u +%Y%m%d%H%M)"
           sed -i -E "s#(wakatime/.*\.svg)\?v=[0-9]+#\1?v=$V#g" README.md
           sed -i -E "s#(wakatime/.*\.svg)(\"|')#\1?v=$V\2#g" README.md
 
-      - name: Commit
+      - name: Commit & Push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add wakatime/*.svg README.md
           git diff --cached --quiet && echo "No changes" && exit 0
-          git commit -m "Update WakaTime cards (bigger bars + weekly)"
+          git commit -m "Update WakaTime cards (big bars + spedometer + weekly)"
           git push
