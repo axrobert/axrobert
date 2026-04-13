@@ -35,11 +35,11 @@ jobs:
             -o wakatime/spedometer.svg
 
       # Rank (achatado + borda reta)
-      - name: Rank (achatado)
+      - name: Rank
         env:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
         run: |
-          curl -fsSL "https://wakatime-readme-stats.vercel.app/api/wakatimeStats?username=$GITHUB_ACTOR&api_key=$WAKATIME_API_KEY&component1_type=rank&component1_mode=level&component1_show_icons=true&component1_scale_value=1.6&theme=dark&bg_color=0d1117&title_color=58a6ff&text_color=8b949e&logo_color=58a6ff&border_color=30363d&border_radius=0" \
+          curl -fsSL "https://wakatime-readme-stats.vercel.app/api/wakatimeStats?username=$GITHUB_ACTOR&api_key=$WAKATIME_API_KEY&component1_type=rank&component1_mode=level&component1_show_icons=true&component1_scale_value=1.55&theme=dark&bg_color=0d1117&title_color=58a6ff&text_color=8b949e&logo_color=58a6ff&border_color=30363d&border_radius=0" \
             -o wakatime/rank.svg
 
       - name: Cache Buster
@@ -54,5 +54,5 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add wakatime/*.svg README.md
           git diff --cached --quiet && echo "No changes" && exit 0
-          git commit -m "Fix rank card size and border"
+          git commit -m "Rank card ajustado"
           git push
