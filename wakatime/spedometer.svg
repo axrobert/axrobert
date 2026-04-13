@@ -8,8 +8,8 @@
     fill="#0d1117"
     stroke="#30363d"
     stroke-width="2"
-    rx="16"
-    ry="16"
+    rx="0"
+    ry="0"
   />
   
   <g transform="translate(25, 10) scale(1)">
