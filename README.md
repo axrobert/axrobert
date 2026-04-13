@@ -106,6 +106,10 @@ A maioria do design, estrutura e artes neste repositório foram criados por mim 
 </div>
 <img align="center" src="https://github.com/Harlocks/design/blob/main/assets/inkscape/separators/Line.png?raw=true">
 
+### 📊 Minhas Estatísticas de Código (WakaTime)
+
+<img src="wakatime/stats.svg?v=1" height="320" alt="WakaTime Stats - axrobert"/>
+
 <!-- <p align="center">
     <img src="https://github.com/Harlocks/keypirinha/blob/main/assets/images/separatorCircle.png?raw=true">
     <a>Fundamentos da Programação</a>
