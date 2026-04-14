@@ -110,7 +110,7 @@ A maioria do design, estrutura e artes neste repositório foram criados por mim 
 
 <div style="display: flex;">
     <img src="wakatime/spedometer.svg?v=202604140014" height="290" width="310" alt="Spedometer"/>
-    <img src="wakatime/weekly_ranking.svg?v=202604140014" height="630" width="550" alt="Weekly Ranking"/> <!-- altura reduzida -->
+    <img src="wakatime/weekly_ranking.svg?v=202604140014" height="630" width="500" alt="Weekly Ranking"/> <!-- altura reduzida -->
 </div>
  
 
