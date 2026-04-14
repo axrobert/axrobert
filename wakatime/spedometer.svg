@@ -87,6 +87,13 @@
     <circle cx="150" cy="160" r="4" fill="#786b5d"/>
   
         
+        <line x1="135.99569243064698" y1="104.23146613453997" x2="125.03579955028374" y2="60.58652658765821"
+                stroke="#a89c90" stroke-width="2" />
+        <text x="139.04010711963676" y="116.35506045311824" font-size="12" font-weight="bold" fill="#a89c90"
+                font-family="Calibri" text-anchor="middle">
+            ⚑
+        </text>
+        
         <g transform="translate(110, 202)">
           
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8b949e" stroke-width="3"
@@ -99,11 +106,11 @@
           </text>
         </g>
         <text x="50%" y="230" text-anchor="middle" font-size="13" fill="#8b949e" font-family="Calibri">
-          <tspan font-weight="bold">0 hrs 0 mins</tspan>
+          <tspan font-weight="bold">2 hrs 11 mins</tspan>
           <tspan font-weight="normal"> Daily Average</tspan>
         </text>
         <text x="50%" y="250" text-anchor="middle" font-size="13" fill="#8b949e" font-family="Calibri">
-          <tspan font-weight="bold">N/A</tspan>
+          <tspan font-weight="bold">2 hrs 11 mins</tspan>
           <tspan font-weight="normal"> Most Active Day</tspan>
         </text>
       </svg>
