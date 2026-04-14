@@ -1,5 +1,4 @@
-<a href="https://wakatime.com/@08a57112-b8d3-4269-93dd-f6bc57befaf3"><img src="https://wakatime.com/badge/user/08a57112-b8d3-4269-93dd-f6bc57befaf3.svg" alt="Total time coded since Jul 31 2022" /></a>
-
+[![wakatime](https://wakatime.com/badge/user/08a57112-b8d3-4269-93dd-f6bc57befaf3.svg)](https://wakatime.com/@08a57112-b8d3-4269-93dd-f6bc57befaf3)
 
 <img align="right" src="https://raw.githubusercontent.com/Harlocks/design/main/assets/inkscape/characters/images.png" width="300px">
 
