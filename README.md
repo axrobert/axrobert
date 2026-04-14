@@ -108,7 +108,7 @@ A maioria do design, estrutura e artes neste repositório foram criados por mim 
 
 <img src="wakatime/all_langs_bar.svg?v=202604140014" height="700" width="1200" alt="Linguagens - axrobert"/>
 
-<div style="display: flex;">
+<div style="display: flex;" align="center">
     <img src="wakatime/spedometer.svg?v=202604140014" height="290" width="300" alt="Spedometer"/>
     <img src="wakatime/weekly_ranking.svg?v=202604140014" height="630" width="530" alt="Weekly Ranking"/> <!-- altura reduzida -->
 </div>
