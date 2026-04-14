@@ -112,7 +112,8 @@ A maioria do design, estrutura e artes neste repositório foram criados por mim 
     <img src="wakatime/spedometer.svg?v=202604140014" height="290" width="300" alt="Spedometer"/>
     <img src="wakatime/weekly_ranking.svg?v=202604140014" height="630" width="530" alt="Weekly Ranking"/> <!-- altura reduzida -->
 </div>
- 
+
+<img src="wakatime/heatmap.svg" height="700" width="1200" alt="Heatmap - axrobert"/>
 
 
 <!-- <p align="center">
