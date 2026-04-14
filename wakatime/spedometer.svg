@@ -8,8 +8,8 @@
     fill="#0d1117"
     stroke="#30363d"
     stroke-width="2"
-    rx="0"
-    ry="0"
+    rx="16"
+    ry="16"
   />
   
   <g transform="translate(25, 10) scale(1)">
@@ -83,7 +83,7 @@
     </g>
   
         
-    <polygon points="151.47442993232835,156.28165945956343 79.35152973170499,131.9858312857612 148.52557006767165,163.71834054043657" fill="#786b5d" />
+    <polygon points="151.49206573127714,156.28870105575575 79.48532005935944,131.65075110573432 148.50793426872286,163.71129894424425" fill="#786b5d" />
     <circle cx="150" cy="160" r="4" fill="#786b5d"/>
   
         
@@ -95,7 +95,7 @@
       <polyline points="5 12 12 5 19 12"></polyline>
     </svg>
           <text x="20" y="12" font-size="13" fill="#8b949e" font-family="Calibri">
-              260509% increase
+              263786% increase
           </text>
         </g>
         <text x="50%" y="230" text-anchor="middle" font-size="13" fill="#8b949e" font-family="Calibri">
