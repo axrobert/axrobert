@@ -42,6 +42,14 @@ jobs:
           curl -fsSL "https://wakatime-readme-stats.vercel.app/api/wakatimeStats?username=$GITHUB_ACTOR&api_key=$WAKATIME_API_KEY&component1_type=rank&component1_mode=level&component1_show_icons=true&theme=dark&bg_color=0d1117&title_color=58a6ff&text_color=8b949e&logo_color=58a6ff&border_color=30363d&border_radius=0&border_width=0" \
             -o wakatime/rank.svg
 
+      # Heatmap
+      - name: Heatmap
+        env:
+          WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+        run: |
+          curl -fsSL "https://wakatime-readme-stats.vercel.app/api/wakatimeStats?username=$GITHUB_ACTOR&api_key=$WAKATIME_API_KEY&component1_type=heatmap&theme=dark&bg_color=0d1117&title_color=58a6ff&text_color=8b949e&logo_color=58a6ff&border_color=30363d&border_radius=16" \
+            -o wakatime/heatmap.svg
+
       - name: Cache Buster
         run: |
           V="$(date -u +%Y%m%d%H%M)"
