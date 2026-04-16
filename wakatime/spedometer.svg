@@ -15,7 +15,7 @@
   <g transform="translate(25, 10) scale(1)">
       <svg width="300" height="260" viewBox="0 0 300 260" xmlns="http://www.w3.org/2000/svg">
         <text x="50%" y="22" text-anchor="middle" font-size="14" fill="#8b949e" font-family="Calibri">
-          <tspan font-weight="bold">5 hrs 5 mins</tspan>
+          <tspan font-weight="bold">0 hrs 7 mins</tspan>
           <tspan font-weight="normal"> Today</tspan>
         </text>
         
@@ -83,13 +83,13 @@
     </g>
   
         
-    <polygon points="153.24729957498428,162.33560387701058 194.3764736632011,98.30130807529855 146.75270042501572,157.66439612298942" fill="#786b5d" />
+    <polygon points="150.20221091534123,156.00511442645515 74.09717410264761,156.15799260851674 149.79778908465877,163.99488557354485" fill="#786b5d" />
     <circle cx="150" cy="160" r="4" fill="#786b5d"/>
   
         
-        <line x1="179.0093866385092" y1="110.35419970574063" x2="201.71238487734252" y2="71.500964692842"
-                stroke="#9d8f81" stroke-width="2" />
-        <text x="172.7029982388333" y="121.14676498710136" font-size="12" font-weight="bold" fill="#9d8f81"
+        <line x1="201.75240051812156" y1="134.9412881294363" x2="242.25427918447758" y2="115.3301223176908"
+                stroke="#918472" stroke-width="2" />
+        <text x="190.50187866635602" y="140.3888341882545" font-size="12" font-weight="bold" fill="#918472"
                 font-family="Calibri" text-anchor="middle">
             ⚑
         </text>
@@ -98,19 +98,19 @@
           
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8b949e" stroke-width="3"
          stroke-linecap="round" stroke-linejoin="round">
-      <line x1="12" y1="19" x2="12" y2="5"></line>
-      <polyline points="5 12 12 5 19 12"></polyline>
+      <line x1="12" y1="5" x2="12" y2="19"></line>
+      <polyline points="19 12 12 19 5 12"></polyline>
     </svg>
           <text x="20" y="12" font-size="13" fill="#8b949e" font-family="Calibri">
-              44% increase
+              97% decrease
           </text>
         </g>
         <text x="50%" y="230" text-anchor="middle" font-size="13" fill="#8b949e" font-family="Calibri">
-          <tspan font-weight="bold">3 hrs 31 mins</tspan>
+          <tspan font-weight="bold">4 hrs 24 mins</tspan>
           <tspan font-weight="normal"> Daily Average</tspan>
         </text>
         <text x="50%" y="250" text-anchor="middle" font-size="13" fill="#8b949e" font-family="Calibri">
-          <tspan font-weight="bold">4 hrs 52 mins</tspan>
+          <tspan font-weight="bold">6 hrs 14 mins</tspan>
           <tspan font-weight="normal"> Most Active Day</tspan>
         </text>
       </svg>
