@@ -15,7 +15,7 @@
   <g transform="translate(25, 10) scale(1)">
       <svg width="300" height="260" viewBox="0 0 300 260" xmlns="http://www.w3.org/2000/svg">
         <text x="50%" y="22" text-anchor="middle" font-size="14" fill="#8b949e" font-family="Calibri">
-          <tspan font-weight="bold">0 hrs 21 mins</tspan>
+          <tspan font-weight="bold">0 hrs 34 mins</tspan>
           <tspan font-weight="normal"> Today</tspan>
         </text>
         
@@ -83,7 +83,7 @@
     </g>
   
         
-    <polygon points="150.83255749323348,156.08760328948344 75.66446250018541,144.18140762856382 149.16744250676652,163.91239671051656" fill="#786b5d" />
+    <polygon points="151.33831184005305,156.23052770022463 78.38002630426803,134.57207503899187 148.66168815994695,163.76947229977537" fill="#786b5d" />
     <circle cx="150" cy="160" r="4" fill="#786b5d"/>
   
         
@@ -95,7 +95,7 @@
       <polyline points="19 12 12 19 5 12"></polyline>
     </svg>
           <text x="20" y="12" font-size="13" fill="#8b949e" font-family="Calibri">
-              92% decrease
+              87% decrease
           </text>
         </g>
         <text x="50%" y="230" text-anchor="middle" font-size="13" fill="#8b949e" font-family="Calibri">
