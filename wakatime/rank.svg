@@ -32,9 +32,9 @@
       Silver Tier: <tspan font-size="10">#</tspan>5001-8000
     </text>
     <rect x="160" y="65" width="160" height="8" fill="#9c8f80" rx="4" opacity="0.3"/>
-    <rect x="160" y="65" width="141.07936507936506" height="8" fill="#9c8f80" rx="4"/>
+    <rect x="160" y="65" width="142.984126984127" height="8" fill="#9c8f80" rx="4"/>
     <text x="320" y="95" font-size="11" text-anchor="end" fill="#8b949e" font-family="Calibri">
-      18.5/21.0 hrs
+      18.8/21.0 hrs
     </text></g>
     </g>
 </svg>
