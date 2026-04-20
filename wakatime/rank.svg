@@ -32,9 +32,9 @@
       Gold Tier: <tspan font-size="10">#</tspan>2501-5000
     </text>
     <rect x="160" y="65" width="160" height="8" fill="#9c8f80" rx="4" opacity="0.3"/>
-    <rect x="160" y="65" width="105.57702926559912" height="8" fill="#9c8f80" rx="4"/>
+    <rect x="160" y="65" width="93.91496410822748" height="8" fill="#9c8f80" rx="4"/>
     <text x="320" y="95" font-size="11" text-anchor="end" fill="#8b949e" font-family="Calibri">
-      19.9/30.2 hrs
+      17.7/30.2 hrs
     </text></g>
     </g>
 </svg>
