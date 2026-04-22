@@ -16,16 +16,16 @@
       <text font-family="Calibri" x="290" y="22.5" font-size="12" text-anchor="middle" fill="#8b949e" font-weight="bold">I mostly code in JavaScript</text>
       <text font-family="Calibri" x="67" y="55.5" font-size="10" text-anchor="end" fill="#8b949e">JavaScript</text>
 <rect x="75" y="46.5" width="430" height="12" fill="#9c8f80" rx="2" ry="2" />
-<text font-family="Calibri" x="511" y="55.5" font-size="9" fill="#8b949e">46:35    |    42.4%</text>
+<text font-family="Calibri" x="511" y="55.5" font-size="9" fill="#8b949e">46:35    |    42.3%</text>
 <text font-family="Calibri" x="67" y="79.5" font-size="10" text-anchor="end" fill="#8b949e">Python</text>
 <rect x="75" y="70.5" width="139.27962921655498" height="12" fill="#9c8f80" rx="2" ry="2" />
 <text font-family="Calibri" x="220.27962921655498" y="79.5" font-size="9" fill="#8b949e">15:05    |    13.7%</text>
 <text font-family="Calibri" x="67" y="103.5" font-size="10" text-anchor="end" fill="#8b949e">CSS</text>
-<rect x="75" y="94.5" width="112.2671251607192" height="12" fill="#9c8f80" rx="2" ry="2" />
-<text font-family="Calibri" x="193.26712516071922" y="103.5" font-size="9" fill="#8b949e">12:09    |    11.1%</text>
+<rect x="75" y="94.5" width="114.84054411869711" height="12" fill="#9c8f80" rx="2" ry="2" />
+<text font-family="Calibri" x="195.8405441186971" y="103.5" font-size="9" fill="#8b949e">12:26    |    11.3%</text>
 <text font-family="Calibri" x="67" y="127.5" font-size="10" text-anchor="end" fill="#8b949e">HTML</text>
-<rect x="75" y="118.5" width="109.81772600506925" height="12" fill="#9c8f80" rx="2" ry="2" />
-<text font-family="Calibri" x="190.81772600506923" y="127.5" font-size="9" fill="#8b949e">11:53    |    10.8%</text>
+<rect x="75" y="118.5" width="109.83784762632308" height="12" fill="#9c8f80" rx="2" ry="2" />
+<text font-family="Calibri" x="190.83784762632308" y="127.5" font-size="9" fill="#8b949e">11:53    |    10.8%</text>
 <text font-family="Calibri" x="67" y="151.5" font-size="10" text-anchor="end" fill="#8b949e">Markdown</text>
 <rect x="75" y="142.5" width="108.21286850100778" height="12" fill="#9c8f80" rx="2" ry="2" />
 <text font-family="Calibri" x="189.2128685010078" y="151.5" font-size="9" fill="#8b949e">11:43    |    10.7%</text>
@@ -50,6 +50,6 @@
 <text font-family="Calibri" x="67" y="319.5" font-size="10" text-anchor="end" fill="#8b949e">PowerShell</text>
 <rect x="75" y="310.5" width="2.530016969626084" height="12" fill="#9c8f80" rx="2" ry="2" />
 <text font-family="Calibri" x="83.53001696962609" y="319.5" font-size="9" fill="#8b949e">16m    |    0.2%</text>
-      <text font-family="Calibri" x="290" y="354.5" font-size="12" text-anchor="middle" fill="#8b949e"><tspan font-weight="bold">Total:</tspan> 110 hrs 28 mins</text>
+      <text font-family="Calibri" x="290" y="354.5" font-size="12" text-anchor="middle" fill="#8b949e"><tspan font-weight="bold">Total:</tspan> 110 hrs 45 mins</text>
     </g>
 </svg>
