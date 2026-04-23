@@ -103,9 +103,9 @@ A maioria do design, estrutura e artes neste repositório foram criados por mim 
 <br>
 <q><em>Prezo pela linha mais perto da autenticidade, pois é ela que move a inovação.</em></q>
 </div>
-<img align="center" src="https://github.com/Harlocks/design/blob/main/assets/inkscape/separators/Line.png?raw=true">
+<img align="center" src="https://github.com/Harlocks/design/blob/main/assets/inkscape/separators/Line.png?raw=true"> <!-- SEPARADOR -->
 
-<img src="assets/wakatimeRank.svg?v=20260423" height="143.6"/>
+<img src="./wakatime/all_langs_bar.svg?v=1">
 
 <div style="display: flex;" align="center">
     <img src="wakatime/spedometer.svg?v=202604232059" height="290" width="300" alt="Spedometer"/>
