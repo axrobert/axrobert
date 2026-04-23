@@ -105,7 +105,7 @@ A maioria do design, estrutura e artes neste repositório foram criados por mim 
 </div>
 <img align="center" src="https://github.com/Harlocks/design/blob/main/assets/inkscape/separators/Line.png?raw=true">
 
-<img src="wakatime/all_langs_bar.svg?v=202604231712" height="700" width="1200" alt="Linguagens - axrobert"/>
+<figure><embed src="https://wakatime.com/share/@axrobert/b9d56013-751c-4986-947e-31ada62f7bcb.svg"></embed></figure>
 
 <div style="display: flex;" align="center">
     <img src="wakatime/spedometer.svg?v=202604231712" height="290" width="300" alt="Spedometer"/>
