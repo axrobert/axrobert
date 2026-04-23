@@ -105,7 +105,7 @@ A maioria do design, estrutura e artes neste repositório foram criados por mim 
 </div>
 <img align="center" src="https://github.com/Harlocks/design/blob/main/assets/inkscape/separators/Line.png?raw=true">
 
-<figure><embed src="https://wakatime.com/share/@axrobert/b9d56013-751c-4986-947e-31ada62f7bcb.svg"></embed></figure>
+<a href="https://wakatime.com"><img src="https://wakatime.com/share/@axrobert/06e62bb3-0bb8-41ac-a421-4e3b91ca2579.png" /></a>
 
 <div style="display: flex;" align="center">
     <img src="wakatime/spedometer.svg?v=202604231712" height="290" width="300" alt="Spedometer"/>
