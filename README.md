@@ -105,14 +105,14 @@ A maioria do design, estrutura e artes neste repositório foram criados por mim 
 </div>
 <img align="center" src="https://github.com/Harlocks/design/blob/main/assets/inkscape/separators/Line.png?raw=true"> <!-- SEPARADOR -->
 
-<img src="./wakatime/all_projs_bar_vertical.svg?v=202605031244" width="100%">
+<img src="./wakatime/all_projs_bar_vertical.svg?v=202605031405" width="100%">
 
 <div style="display: flex;" align="center">
-    <img src="wakatime/spedometer.svg?v=202605031244" height="290" width="300" alt="Spedometer"/>
-    <img src="wakatime/weekly_ranking.svg?v=202605031244" height="630" width="530" alt="Weekly Ranking"/> <!-- altura reduzida -->
+    <img src="wakatime/spedometer.svg?v=202605031405" height="290" width="300" alt="Spedometer"/>
+    <img src="wakatime/weekly_ranking.svg?v=202605031405" height="630" width="530" alt="Weekly Ranking"/> <!-- altura reduzida -->
 </div>
 
-<img src="wakatime/heatmap.svg?v=202605031244" height="700" width="1200" alt="Heatmap - axrobert"/>
+<img src="wakatime/heatmap.svg?v=202605031405" height="700" width="1200" alt="Heatmap - axrobert"/>
 
 
 <!-- <p align="center">
