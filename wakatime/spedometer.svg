@@ -83,7 +83,7 @@
     </g>
   
         
-    <polygon points="150.00756158877292,156.0000071472095 74.00013579698015,159.85632981331455 149.99243841122708,163.9999928527905" fill="#786b5d" />
+    <polygon points="150,156 74,160 150,164" fill="#786b5d" />
     <circle cx="150" cy="160" r="4" fill="#786b5d"/>
   
         
@@ -106,7 +106,7 @@
           </text>
         </g>
         <text x="50%" y="230" text-anchor="middle" font-size="13" fill="#8b949e" font-family="Calibri">
-          <tspan font-weight="bold">2 hrs 0 mins</tspan>
+          <tspan font-weight="bold">1 hrs 50 mins</tspan>
           <tspan font-weight="normal"> Daily Average</tspan>
         </text>
         <text x="50%" y="250" text-anchor="middle" font-size="13" fill="#8b949e" font-family="Calibri">
