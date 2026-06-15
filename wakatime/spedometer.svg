@@ -15,7 +15,7 @@
   <g transform="translate(25, 10) scale(1)">
       <svg width="300" height="260" viewBox="0 0 300 260" xmlns="http://www.w3.org/2000/svg">
         <text x="50%" y="22" text-anchor="middle" font-size="14" fill="#8b949e" font-family="Calibri">
-          <tspan font-weight="bold">0 hrs 11 mins</tspan>
+          <tspan font-weight="bold">0 hrs 0 mins</tspan>
           <tspan font-weight="normal"> Today</tspan>
         </text>
         
@@ -83,9 +83,16 @@
     </g>
   
         
-    <polygon points="150.38872226159268,156.01893293156945 74.35972569981938,152.61427702973936 149.61127773840732,163.98106706843055" fill="#786b5d" />
+    <polygon points="150,156 74,160 150,164" fill="#786b5d" />
     <circle cx="150" cy="160" r="4" fill="#786b5d"/>
   
+        
+        <line x1="203.3626669820581" y1="138.58328287150516" x2="245.12475418540794" y2="121.82237381442225"
+                stroke="#918472" stroke-width="2" />
+        <text x="191.76208720334984" y="143.23909094291707" font-size="12" font-weight="bold" fill="#918472"
+                font-family="Calibri" text-anchor="middle">
+            ⚑
+        </text>
         
         <g transform="translate(110, 202)">
           
@@ -95,11 +102,11 @@
       <polyline points="19 12 12 19 5 12"></polyline>
     </svg>
           <text x="20" y="12" font-size="13" fill="#8b949e" font-family="Calibri">
-              90% decrease
+              100% decrease
           </text>
         </g>
         <text x="50%" y="230" text-anchor="middle" font-size="13" fill="#8b949e" font-family="Calibri">
-          <tspan font-weight="bold">1 hrs 50 mins</tspan>
+          <tspan font-weight="bold">1 hrs 43 mins</tspan>
           <tspan font-weight="normal"> Daily Average</tspan>
         </text>
         <text x="50%" y="250" text-anchor="middle" font-size="13" fill="#8b949e" font-family="Calibri">
