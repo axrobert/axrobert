@@ -13,7 +13,7 @@
   />
   
   <g transform="translate(0, 10) scale(1)">
-      <text x="40" y="18" font-size="14" fill="#8b949e" font-family="Calibri" font-weight="bold">
+        <text x="40" y="18" font-size="14" fill="#8b949e" font-family="Calibri" font-weight="bold">
         This year, my most productive month was April
       </text>
       <g transform="translate(40, 50)">
@@ -407,5 +407,5 @@
 <rect x="581" y="90" width="10" height="10" rx="2" ry="2" fill="#9c8f80" fill-opacity="1"/>
         <text x="598" y="98" font-size="10" fill="#8b949e" font-family="Calibri">More</text>
       </g>
-    </g>
+      </g>
 </svg>
