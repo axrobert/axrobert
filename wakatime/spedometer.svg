@@ -13,7 +13,6 @@
   />
   
   <g transform="translate(25, 10) scale(1)">
-        <svg width="300" height="260" viewBox="0 0 300 260" xmlns="http://www.w3.org/2000/svg">
         <text x="50%" y="22" text-anchor="middle" font-size="14" fill="#8b949e" font-family="Calibri">
           <tspan font-weight="bold">0 hrs 18 mins</tspan>
           <tspan font-weight="normal"> Today</tspan>
@@ -83,13 +82,13 @@
     </g>
   
         
-    <polygon points="150.62349247524003,156.04889165760807 74.92894149455347,148.15364297043922 149.37650752475997,163.95110834239193" fill="#786b5d" />
+    <polygon points="150.53461093267276,156.03588709158444 74.68185474010463,149.84239227921748 149.46538906732724,163.96411290841556" fill="#786b5d" />
     <circle cx="150" cy="160" r="4" fill="#786b5d"/>
   
         
-        <line x1="207.44326616262717" y1="157.44634133651894" x2="252.3988657681615" y2="155.44782586075115"
+        <line x1="200.76573286692917" y1="132.99832659845717" x2="240.49543684974333" y2="111.86658219724971"
                 stroke="#918472" stroke-width="2" />
-        <text x="194.9555996055343" y="158.0014845242322" font-size="12" font-weight="bold" fill="#918472"
+        <text x="189.72970398281416" y="138.86825559879256" font-size="12" font-weight="bold" fill="#918472"
                 font-family="Calibri" text-anchor="middle">
             ⚑
         </text>
@@ -113,6 +112,5 @@
           <tspan font-weight="bold">6 hrs 14 mins</tspan>
           <tspan font-weight="normal"> Most Active Day</tspan>
         </text>
-      </svg>
       </g>
 </svg>
