@@ -86,9 +86,9 @@
     <circle cx="150" cy="160" r="4" fill="#786b5d"/>
   
         
-        <line x1="199.60347022695086" y1="130.91829197856492" x2="238.4235773610863" y2="108.15869439657229"
-                stroke="#918472" stroke-width="2" />
-        <text x="188.82010713413544" y="137.24040241800733" font-size="12" font-weight="bold" fill="#918472"
+        <line x1="183.34206802071373" y1="113.15390624500162" x2="209.43586038475058" y2="76.4917459150029"
+                stroke="#9d8f81" stroke-width="2" />
+        <text x="176.09379236403683" y="123.33783967000127" font-size="12" font-weight="bold" fill="#9d8f81"
                 font-family="Calibri" text-anchor="middle">
             ⚑
         </text>
