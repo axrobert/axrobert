@@ -86,13 +86,6 @@
     <circle cx="150" cy="160" r="4" fill="#786b5d"/>
   
         
-        <line x1="202.16514090455004" y1="135.81223295943917" x2="242.9900337863718" y2="116.88267614508723"
-                stroke="#918472" stroke-width="2" />
-        <text x="190.82489288182177" y="141.07044318564806" font-size="12" font-weight="bold" fill="#918472"
-                font-family="Calibri" text-anchor="middle">
-            ⚑
-        </text>
-        
         <g transform="translate(110, 202)">
           
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8b949e" stroke-width="3"
