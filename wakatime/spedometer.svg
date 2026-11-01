@@ -98,11 +98,11 @@
           </text>
         </g>
         <text x="50%" y="230" text-anchor="middle" font-size="13" fill="#8b949e" font-family="Calibri">
-          <tspan font-weight="bold">1 hrs 40 mins</tspan>
+          <tspan font-weight="bold">0 hrs 0 mins</tspan>
           <tspan font-weight="normal"> Daily Average</tspan>
         </text>
         <text x="50%" y="250" text-anchor="middle" font-size="13" fill="#8b949e" font-family="Calibri">
-          <tspan font-weight="bold">6 hrs 26 mins</tspan>
+          <tspan font-weight="bold">N/A</tspan>
           <tspan font-weight="normal"> Most Active Day</tspan>
         </text>
       </g>
