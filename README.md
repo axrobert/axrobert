@@ -106,6 +106,10 @@ A maioria do design, estrutura e artes neste repositório foram criados por mim 
 <img align="center" src="https://github.com/Harlocks/design/blob/main/assets/inkscape/separators/Line.png?raw=true"> <!-- SEPARADOR -->
 
 <p align="center">
+  <img src="wakatime/lifetime.svg?v=202611101743" width="100%" alt="Horas totais registradas e progressão personalizada de nível">
+</p>
+
+<p align="center">
   <img src="wakatime/all_projs_bar_vertical.svg?v=202611101743" width="100%" alt="Linguagens de programação nos últimos 30 dias">
 </p>
 
