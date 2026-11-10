@@ -1,68 +1,72 @@
-name: 💥 Wakatime Update Stats
+name: 💥 WakaTime Update Stats
 
 on:
   schedule:
-    - cron: 0 * * * *
+    - cron: "0 */6 * * *"
   workflow_dispatch:
 
 permissions:
   contents: write
 
+concurrency:
+  group: wakatime-profile-stats
+  cancel-in-progress: false
+
 jobs:
   generate-stats:
     runs-on: ubuntu-latest
-
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
 
-      - name: Create folder
-        run: mkdir -p wakatime
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
 
-      # All Languages Bar
-      - name: All Languages Bar
+      - name: Test SVG generator offline
+        run: python -m unittest discover -s tests -p 'test_wakatime*.py' -v
+
+      - name: Require WakaTime OAuth token
         env:
-          WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+          WAKATIME_OAUTH_TOKEN: ${{ secrets.WAKATIME_OAUTH_TOKEN }}
         run: |
-          TS=$(date +%s)
-          curl -fsSL "https://wakatime-readme-stats.vercel.app/api/wakatimeStats?username=$GITHUB_ACTOR&api_key=$WAKATIME_API_KEY&component1_type=all_langs&component1_chart_type=bar_vertical&component1_num_langs=12&component1_scale_value=1.0&theme=dark&bg_color=0d1117&title_color=58a6ff&text_color=8b949e&logo_color=58a6ff&border_color=30363d&border_radius=16" \
-            -o wakatime/all_projs_bar_vertical.svg
+          if [ -z "$WAKATIME_OAUTH_TOKEN" ]; then
+            echo "::error::WAKATIME_OAUTH_TOKEN não configurado. Veja docs/WAKATIME.md."
+            exit 1
+          fi
 
-      # Spedometer
-      - name: Spedometer
+      - name: Generate SVG using WakaTime official API
         env:
-          WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
-        run: |
-          curl -fsSL "https://wakatime-readme-stats.vercel.app/api/wakatimeStats?username=$GITHUB_ACTOR&api_key=$WAKATIME_API_KEY&component1_type=spedometer&theme=dark&bg_color=0d1117&title_color=58a6ff&text_color=8b949e&logo_color=58a6ff&border_color=30363d&border_radius=16" \
-            -o wakatime/spedometer.svg
+          WAKATIME_OAUTH_TOKEN: ${{ secrets.WAKATIME_OAUTH_TOKEN }}
+        run: python scripts/generate_wakatime_cards.py
 
-      # Rank
-      - name: Rank
-        env:
-          WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
-          GITHUB_TOKEN: ${{ github.token }}
+      - name: Validate generated SVGs
         run: |
-          curl -fsSL "https://wakatime-readme-stats.vercel.app/api/wakatimeStats?username=$GITHUB_ACTOR&api_key=$WAKATIME_API_KEY&github_token=$GITHUB_TOKEN&default_source=waka&component1_type=rank&component1_default_source=waka&component1_mode=level&component1_show_icons=true&theme=dark&bg_color=0d1117&title_color=58a6ff&text_color=8b949e&logo_color=58a6ff&border_color=30363d&border_radius=0&border_width=0" \
-            -o wakatime/weekly_ranking.svg
+          python - <<'PY'
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+          for name in ["all_projs_bar_vertical.svg", "spedometer.svg",
+                       "weekly_ranking.svg", "heatmap.svg"]:
+              file = Path("wakatime") / name
+              content = file.read_text(encoding="utf-8")
+              ET.fromstring(content)
+              if any(error in content for error in
+                     ["Card Error", "Heatmap Error", "WakaTime API error"]):
+                  raise SystemExit(f"SVG inválido: {name}")
+          print("Todos os SVGs válidos.")
+          PY
 
-      # Heatmap
-      - name: Heatmap
-        env:
-          WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
-        run: |
-          curl -fsSL "https://wakatime-readme-stats.vercel.app/api/wakatimeStats?username=$GITHUB_ACTOR&api_key=$WAKATIME_API_KEY&component1_type=heatmap&theme=dark&bg_color=0d1117&title_color=58a6ff&text_color=8b949e&logo_color=58a6ff&border_color=30363d&border_radius=16" \
-            -o wakatime/heatmap.svg
-
-      - name: Cache Buster
-        run: |
-          V="$(date -u +%Y%m%d%H%M)"
-          sed -i -E "s#(wakatime/.*\.svg)\?v=[0-9]+#\1?v=$V#g" README.md
-          sed -i -E "s#(wakatime/.*\.svg)(\"|')#\1?v=$V\2#g" README.md
-
-      - name: Commit & Push
+      - name: Commit only verified cards
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add wakatime/*.svg README.md
-          git diff --cached --quiet && echo "No changes" && exit 0
-          git commit -m "WakaTime cards - versão estável"
+          git add -- wakatime/all_projs_bar_vertical.svg wakatime/spedometer.svg wakatime/weekly_ranking.svg wakatime/heatmap.svg
+          if git diff --cached --quiet; then
+            echo "Nenhuma mudança nos gráficos."
+            exit 0
+          fi
+          git commit -m "chore(wakatime): update validated activity cards"
           git push

@@ -1,0 +1,27 @@
+name: Test WakaTime SVG Generator
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "scripts/generate_wakatime_cards.py"
+      - "tests/test_wakatime_cards.py"
+      - ".github/workflows/test-wakatime-cards.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile Python sources
+        run: python -m compileall -q scripts tests
+      - name: Run WakaTime offline SVG tests
+        run: python -m unittest discover -s tests -p 'test_wakatime*.py' -v
