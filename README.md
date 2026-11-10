@@ -114,8 +114,8 @@ A maioria do design, estrutura e artes neste repositório foram criados por mim 
 </p>
 
 <p align="center">
-  <img src="wakatime/spedometer.svg?v=20261110203135" width="47%" alt="Atividade de programação">
-  <img src="wakatime/weekly_ranking.svg?v=20261110203135" width="51%" alt="Ranking semanal WakaTime">
+  <img src="wakatime/spedometer.svg?v=20261110203135" width="49%" alt="Atividade de programação">
+  <img src="wakatime/weekly_ranking.svg?v=20261110203135" width="49%" alt="Ranking semanal WakaTime">
 </p>
 
 <p align="center">
