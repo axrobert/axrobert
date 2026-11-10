@@ -285,6 +285,33 @@ def rank_emblem(lifetime):
             + stars_svg(55, 238, filled, color, 6.4, 20))
     return base(192, 259, "Emblema", "Nível por horas", body)
 
+
+def verified_historical_stats(all_languages, lifetime):
+    """Reject stale/short-range data rather than labeling it 'all time'.
+
+    Some WakaTime statistics may be processing their initial historical
+    calculation. Do not silently publish a 30-day result as lifetime.
+    """
+    data = all_languages.get("data") if isinstance(all_languages, dict) else None
+    hours_data = lifetime.get("data") if isinstance(lifetime, dict) else None
+    if not isinstance(data, dict) or not isinstance(hours_data, dict):
+        raise RuntimeError("Dados históricos do WakaTime incompletos")
+    languages = data.get("languages")
+    total = data.get("total_seconds")
+    lifetime_total = hours_data.get("total_seconds")
+    if not isinstance(languages, list) or not isinstance(total, (int, float)):
+        raise RuntimeError("Estatísticas por linguagem do histórico indisponíveis")
+    if not isinstance(lifetime_total, (int, float)):
+        raise RuntimeError("Total desde a criação da conta indisponível")
+    # A clear discrepancy suggests a stale 30-day response or partial cache.
+    # The all-time endpoint can differ slightly from the lifetime counter.
+    if lifetime_total >= 3600 and total < lifetime_total * 0.60:
+        raise RuntimeError(
+            "Estatísticas por linguagem não correspondem ao tempo histórico. "
+            "A API pode estar processando os dados; não sobrescrever gráficos."
+        )
+    return data
+
 def generate_cards(month, week, summaries, leader, today, lifetime=None, all_languages=None):
     days = summaries.get("data")
     if not isinstance(days, list):
@@ -295,9 +322,10 @@ def generate_cards(month, week, summaries, leader, today, lifetime=None, all_lan
     daily = {(entry.get("range") or {}).get("date"):
              float((entry.get("grand_total") or {}).get("total_seconds") or 0)
              for entry in days}
+    historical = verified_historical_stats(all_languages, lifetime) if all_languages is not None and lifetime is not None else None
     cards = {
-        "all_projs_bar_vertical.svg": languages_card(all_languages["data"], all_time=True)
-        if all_languages is not None else languages_card(stats30),
+        "all_projs_bar_vertical.svg": languages_card(historical, all_time=True)
+        if historical is not None else languages_card(stats30),
         "spedometer.svg": speed_card(daily.get(today.isoformat(), 0),
                                     float(stats7.get("daily_average") or 0)),
         "weekly_ranking.svg": rank_card(leader, stats7),
@@ -335,6 +363,7 @@ def main():
         leader = api("leaders", token)
     except RuntimeError:
         leader = None
+    verified_historical_stats(all_languages, lifetime)
     cards = generate_cards(month, week, summaries, leader, today, lifetime, all_languages)
     OUT.mkdir(parents=True, exist_ok=True)
     for filename, svg in cards.items():
