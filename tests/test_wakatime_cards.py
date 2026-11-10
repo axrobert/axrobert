@@ -34,14 +34,14 @@ class WakaTimeCardTests(unittest.TestCase):
             self.assertNotIn("Card Error", content)
             self.assertNotIn("Heatmap Error", content)
         self.assertIn("TypeScript", cards["all_projs_bar_vertical.svg"])
-        self.assertIn("Sem posição pública disponível", cards["weekly_ranking.svg"])
+        self.assertIn("Sem posição pública confirmada", cards["weekly_ranking.svg"])
 
     def test_zero_activity_does_not_invent_stats(self):
         cards = module.generate_cards(
             {"data": {"languages": []}},
             {"data": {"total_seconds": 0, "daily_average": 0}},
             {"data": []}, None, self.today)
-        self.assertIn("Sem atividade", cards["all_projs_bar_vertical.svg"])
+        self.assertIn("Nenhuma linguagem registrada neste período", cards["all_projs_bar_vertical.svg"])
         self.assertIn("0h 00min", cards["spedometer.svg"])
 
     def test_unexpected_wakatime_shape_rejected(self):
