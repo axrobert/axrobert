@@ -81,6 +81,8 @@ jobs:
           text, count = re.subn(pattern, lambda m: f"{m.group(1)}?v={version}", text)
           if count != 5:
               raise SystemExit(f"Esperava atualizar 5 referências SVG, encontradas: {count}")
+          text = text.replace("Linguagens de programação nos últimos 30 dias",
+                              "Linguagens registradas durante todo o histórico")
           path.write_text(text, encoding="utf-8")
           PY
           git add -- README.md
