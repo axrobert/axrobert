@@ -99,3 +99,50 @@ class WakaTimeCardTests(unittest.TestCase):
                                     {"data":{"total_seconds":3600*350}})
         self.assertIn("linearGradient",cards["lifetime.svg"])
         self.assertIn("M 79 210",cards["spedometer.svg"])
+
+    def test_rejects_stale_thirty_day_data_as_historical(self):
+        lifetime = {"data": {"total_seconds": 152*3600}}
+        mistaken = {"data": {"total_seconds": 14*3600,
+                             "languages": [{"name":"TypeScript","total_seconds":14*3600}]}}
+        with self.assertRaisesRegex(RuntimeError, "não correspondem"):
+            module.generate_cards(self.month, self.week, self.summaries, None,
+                                  self.today, lifetime, mistaken)
+
+    def test_verifies_genuine_historical_data(self):
+        lifetime = {"data": {"total_seconds": 152*3600}}
+        historical = {"data": {"total_seconds": 150*3600,
+                               "languages": [{"name":"Rust","total_seconds":125*3600}]}}
+        cards = module.generate_cards(self.month, self.week, self.summaries, None,
+                                      self.today, lifetime, historical)
+        chart = cards["all_projs_bar_vertical.svg"]
+        self.assertIn("Histórico completo registrado", chart)
+        self.assertIn("125h", chart)
+        self.assertNotIn("TypeScript", chart)
+
+    def test_rejects_missing_language_history(self):
+        with self.assertRaisesRegex(RuntimeError, "indisponíveis"):
+            module.verified_historical_stats(
+                {"data":{"total_seconds":100000}},
+                {"data":{"total_seconds":100000}}
+            )
+
+    def test_real_png_medal_rendering(self):
+        import tempfile
+        from PIL import Image
+        from render_rank_png import render
+        lifetime={"data":{"total_seconds":3600*145}}
+        svg=module.generate_cards(self.month,self.week,self.summaries,
+                                  None,self.today,lifetime)["lifetime.svg"]
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp)
+            source=root/"lifetime.svg"
+            source.write_text(svg,encoding="utf-8")
+            output=root/"lifetime.png"
+            emblem=root/"emblem.png"
+            badges=Path(__file__).resolve().parents[1]/"assets/badges"
+            render(source,2,badges,output,emblem)
+            with Image.open(output) as card:
+                self.assertEqual(card.size,(1400,618))
+            with Image.open(emblem) as image:
+                self.assertEqual(image.size,(320,320))
+

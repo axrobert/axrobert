@@ -1,6 +1,13 @@
 name: 💥 WakaTime Update Stats
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/generate_wakatime_cards.py'
+      - 'scripts/render_rank_png.py'
+      - 'assets/badges/*.png'
+      - '.github/workflows/wakatime-stats.yml'
   schedule:
     - cron: "0 */6 * * *"
   workflow_dispatch:
@@ -25,6 +32,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
+      - name: Install PNG raster renderer
+        run: python -m pip install --disable-pip-version-check "Pillow>=11,<13" "CairoSVG>=2.7,<3"
 
       - name: Test SVG generator offline
         run: python -m unittest discover -s tests -p 'test_wakatime*.py' -v
@@ -59,11 +69,20 @@ jobs:
           print("Todos os SVGs válidos.")
           PY
 
+      - name: Compose final PNG cards with generated rank illustrations
+        run: |
+          python scripts/render_rank_png.py \
+            --card wakatime/lifetime.svg \
+            --tier-file wakatime/.rank-level \
+            --assets assets/badges \
+            --output wakatime/lifetime.png \
+            --emblem-output wakatime/rank_emblem.png
+
       - name: Commit only verified cards
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -- wakatime/all_projs_bar_vertical.svg wakatime/spedometer.svg wakatime/weekly_ranking.svg wakatime/heatmap.svg wakatime/lifetime.svg wakatime/rank_emblem.svg
+          git add -- wakatime/all_projs_bar_vertical.svg wakatime/spedometer.svg wakatime/weekly_ranking.svg wakatime/heatmap.svg wakatime/lifetime.svg wakatime/rank_emblem.svg wakatime/lifetime.png wakatime/rank_emblem.png
           if git diff --cached --quiet; then
             echo "Nenhuma mudança nos gráficos."
             exit 0
@@ -77,10 +96,14 @@ jobs:
           path = Path("README.md")
           text = path.read_text(encoding="utf-8")
           version = datetime.now(timezone.utc).strftime("%Y%m%d%H%M%S")
-          pattern = r"(wakatime/(?:all_projs_bar_vertical|spedometer|weekly_ranking|heatmap|lifetime|rank_emblem)\.svg)(?:\?v=\d+)?"
+          pattern = r"(wakatime/(?:all_projs_bar_vertical|spedometer|weekly_ranking|heatmap|lifetime|rank_emblem)\.(?:svg|png))(?:\?v=\d+)?"
+          # Switch the README to the PNG only after a validated raster is ready.
+          text = text.replace("wakatime/lifetime.svg?v=", "wakatime/lifetime.png?v=")
           text, count = re.subn(pattern, lambda m: f"{m.group(1)}?v={version}", text)
           if count != 5:
               raise SystemExit(f"Esperava atualizar 5 referências SVG, encontradas: {count}")
+          text = text.replace("Linguagens de programação nos últimos 30 dias",
+                              "Linguagens registradas durante todo o histórico")
           path.write_text(text, encoding="utf-8")
           PY
           git add -- README.md

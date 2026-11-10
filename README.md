@@ -110,7 +110,7 @@ A maioria do design, estrutura e artes neste repositório foram criados por mim 
 </p>
 
 <p align="center">
-  <img src="wakatime/all_projs_bar_vertical.svg?v=20261110184214" width="100%" alt="Linguagens de programação nos últimos 30 dias">
+  <img src="wakatime/all_projs_bar_vertical.svg?v=20261110184214" width="100%" alt="Linguagens do histórico completo registrado no WakaTime">
 </p>
 
 <p align="center">
