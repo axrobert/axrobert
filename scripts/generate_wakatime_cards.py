@@ -88,24 +88,34 @@ def base(width, height, title, subtitle, body):
 
 def languages_card(stats):
     items = sorted(stats.get("languages") or [],
-                   key=lambda v: v.get("total_seconds") or 0, reverse=True)[:10]
-    amount = max((float(i.get("total_seconds") or 0) for i in items), default=0)
-    parts = []
-    if not items or amount == 0:
-        parts.append(txt(35, 135, "Sem atividade por linguagem nos últimos 30 dias.", 15, MUTED))
+                   key=lambda v: float(v.get("total_seconds") or 0),
+                   reverse=True)[:10]
+    maximum = max((float(i.get("total_seconds") or 0) for i in items), default=0)
+    total = float(stats.get("total_seconds") or 0)
+    parts = [
+        txt(32, 109, "TEMPO DE CÓDIGO", 11, MUTED, 700),
+        txt(669, 109, words(total), 14, TEXT, 700, "end"),
+        '<path d="M 30 125 H 670" stroke="#25303d"/>',
+    ]
+    if not items or maximum <= 0:
+        parts.append(txt(35, 195, "Nenhuma linguagem registrada neste período.", 15, MUTED))
     for n, item in enumerate(items):
-        y = 118 + n * 31
-        sec = float(item.get("total_seconds") or 0)
-        w = round(310 * sec / amount, 1) if amount else 0
+        y = 159 + n * 29
+        sec = max(0, float(item.get("total_seconds") or 0))
+        name = str(item.get("name") or "Outra")
+        if len(name) > 22:
+            name = name[:20] + "…"
+        width = round(286 * sec / maximum, 1) if maximum else 0
+        pct = 100 * sec / total if total else 0
         parts.extend([
-            txt(32, y, str(item.get("name") or "Outra")[:23], 13, TEXT),
-            f'<rect x="230" y="{y-13}" width="310" height="15" rx="5" fill="#212b36"/>',
-            f'<rect x="230" y="{y-13}" width="{w}" height="15" rx="5" fill="{ACCENT}"/>',
-            txt(554, y, words(sec), 12, MUTED),
+            txt(32, y, name, 13, TEXT, 600),
+            f'<rect x="226" y="{y-12}" width="286" height="14" rx="6" fill="#202b37"/>',
+            f'<rect x="226" y="{y-12}" width="{width}" height="14" rx="6" fill="{ACCENT}"/>',
+            txt(527, y, f"{pct:.1f}%", 11, MUTED),
+            txt(668, y, words(sec), 12, TEXT, 600, "end"),
         ])
-    return base(700, 450, "Linguagens", "Atividade verificada · últimos 30 dias",
+    return base(700, 480, "Linguagens", "Últimos 30 dias · tempo registrado pelo WakaTime",
                 "".join(parts))
-
 
 def arc(cx, cy, r, fraction):
     fraction = min(1.0, max(0.0, fraction))
@@ -115,84 +125,183 @@ def arc(cx, cy, r, fraction):
     x, y = cx + r * math.cos(angle), cy - r * math.sin(angle)
     large = 1 if fraction > 0.5 else 0
     return (f'<path d="M {cx-r} {cy} A {r} {r} 0 {large} 1 {x:.2f} {y:.2f}" '
-            f'fill="none" stroke="{GREEN}" stroke-width="15" stroke-linecap="round"/>')
-
+            f'fill="none" stroke="{GREEN}" stroke-width="13" stroke-linecap="round"/>')
 
 def speed_card(today_seconds, daily_avg):
-    # The 8-hour target is a display scale, not a claim about a WakaTime tier.
-    fraction = today_seconds / (8 * 3600)
-    body = (f'<path d="M 65 172 A 100 100 0 0 1 265 172" '
-            f'fill="none" stroke="#26313b" stroke-width="15" stroke-linecap="round"/>'
-            + arc(165, 172, 100, fraction)
-            + txt(165, 150, words(today_seconds), 25, TEXT, 700, "middle")
-            + txt(165, 178, "hoje", 13, MUTED, 400, "middle")
-            + txt(165, 227, "Média diária (7 dias): " + words(daily_avg),
-                  12, MUTED, 400, "middle"))
-    return base(330, 250, "Atividade", "Tempo de programação", body)
-
+    # Visual gauge scale: eight hours, not an official WakaTime score.
+    fraction = min(1.0, max(0.0, today_seconds / (8 * 3600)))
+    body = (
+        '<path d="M 81 194 A 84 84 0 0 1 249 194" fill="none" '
+        'stroke="#24303b" stroke-width="13" stroke-linecap="round"/>'
+        + arc(165, 194, 84, fraction)
+        + txt(165, 162, words(today_seconds), 25, TEXT, 700, "middle")
+        + txt(165, 186, "registrado hoje", 12, MUTED, 400, "middle")
+        + '<path d="M 26 220 H 304" stroke="#25303d"/>'
+        + txt(27, 249, "Média por dia ativo", 11, MUTED)
+        + txt(304, 249, words(daily_avg), 12, TEXT, 700, "end")
+    )
+    return base(330, 271, "Atividade", "Hoje · meta visual de 8h", body)
 
 def rank_card(leader, week):
     current = (leader or {}).get("current_user") or {}
-    rank = current.get("rank")
-    valid = isinstance(rank, int) and rank > 0
-    status = "#" + str(rank) if valid else "—"
-    description = "Posição no ranking público" if valid else "Sem posição pública disponível"
-    body = (txt(31, 135, status, 53, GREEN if valid else MUTED, 700)
-            + txt(31, 163, description, 14, MUTED)
-            + '<path d="M 30 183 H 330" stroke="#30363d"/>'
-            + txt(31, 211, "Últimos 7 dias", 13, MUTED)
-            + txt(331, 211, words(week.get("total_seconds") or 0),
-                  15, TEXT, 700, "end"))
-    return base(360, 250, "Ranking semanal", "WakaTime · atividade pública", body)
-
+    position = current.get("rank")
+    verified = isinstance(position, int) and not isinstance(position, bool) and position > 0
+    label = f"#{position}" if verified else "—"
+    body = (
+        txt(28, 125, "CLASSIFICAÇÃO OFICIAL", 11, MUTED, 700)
+        + txt(28, 178, label, 46, GREEN if verified else MUTED, 700)
+        + txt(28, 200, "Sua posição no WakaTime" if verified
+              else "Sem posição pública confirmada", 12, MUTED)
+        + '<path d="M 27 220 H 330" stroke="#25303d"/>'
+        + txt(28, 249, "Últimos 7 dias", 12, MUTED)
+        + txt(330, 249, words(week.get("total_seconds") or 0),
+              14, TEXT, 700, "end")
+    )
+    return base(360, 271, "Ranking semanal",
+                "Ranking público oficial · sem pontuação fictícia", body)
 
 def heat_card(summaries, today):
     by_date = {}
-    for day in summaries:
-        key = (day.get("range") or {}).get("date")
-        if key:
-            by_date[key] = float((day.get("grand_total") or {}).get("total_seconds") or 0)
+    for item in summaries:
+        day = (item.get("range") or {}).get("date")
+        if day:
+            by_date[day] = max(0, float((item.get("grand_total") or {}).get("total_seconds") or 0))
     start = today - dt.timedelta(days=29)
-    first_monday = start - dt.timedelta(days=start.weekday())
-    total = sum(by_date.get((start + dt.timedelta(days=k)).isoformat(), 0)
-                for k in range(30))
-    active = 0
-    squares = []
-    for k in range(30):
-        day = start + dt.timedelta(days=k)
-        sec = by_date.get(day.isoformat(), 0)
-        if sec:
-            active += 1
-        level = 0 if sec <= 0 else min(4, max(1, math.ceil(sec / 7200)))
-        colors = ["#202a35", "#145c51", "#18836e", "#25ae8d", "#34d399"]
-        delta = (day - first_monday).days
-        x, y = 57 + (delta // 7) * 28, 89 + (delta % 7) * 24
-        squares.append(
-            f'<rect x="{x}" y="{y}" width="20" height="20" rx="4" '
-            f'fill="{colors[level]}"><title>{day.isoformat()}: {esc(words(sec))}</title></rect>'
-        )
-    body = ("".join(squares)
-            + txt(295, 121, words(total), 31, TEXT, 700)
-            + txt(295, 147, "Total nos últimos 30 dias", 13, MUTED)
-            + txt(295, 190, str(active) + "/30", 26, GREEN, 700)
-            + txt(295, 215, "Dias com atividade", 13, MUTED)
-            + txt(57, 277, "Menos", 11, MUTED)
-            + "".join(f'<rect x="{100+i*25}" y="265" width="17" height="17" '
-                      f'rx="4" fill="{c}"/>' for i, c in enumerate(
-                          ["#202a35", "#145c51", "#18836e", "#25ae8d", "#34d399"]))
-            + txt(244, 277, "Mais", 11, MUTED))
-    return base(700, 302, "Calendário de atividade",
-                "Últimos 30 dias · horário America/Maceio", body)
+    grid_start = start - dt.timedelta(days=start.weekday())
+    total_seconds = 0
+    active_days = 0
+    cells = []
+    for i in range(30):
+        day = start + dt.timedelta(days=i)
+        seconds = by_date.get(day.isoformat(), 0)
+        total_seconds += seconds
+        if seconds > 0:
+            active_days += 1
+        palette = ["#202a35", "#145c51", "#18836e", "#25ae8d", "#34d399"]
+        level = 0 if seconds == 0 else min(4, max(1, math.ceil(seconds / 7200)))
+        offset = (day - grid_start).days
+        x, y = 62 + (offset // 7) * 29, 99 + (offset % 7) * 25
+        cells.append(f'<rect x="{x}" y="{y}" width="20" height="20" rx="4" '
+                     f'fill="{palette[level]}"><title>{day.isoformat()}: {esc(words(seconds))}</title></rect>')
+    palette = ["#202a35", "#145c51", "#18836e", "#25ae8d", "#34d399"]
+    body = (
+        "".join(cells)
+        + txt(299, 139, words(total_seconds), 31, TEXT, 700)
+        + txt(299, 160, "Total · últimos 30 dias", 13, MUTED)
+        + txt(299, 215, f"{active_days}/30", 26, GREEN, 700)
+        + txt(299, 236, "Dias com atividade registrada", 13, MUTED)
+        + '<path d="M 30 288 H 670" stroke="#25303d"/>'
+        + txt(48, 314, "Menos", 11, MUTED)
+        + "".join(f'<rect x="{99+i*25}" y="301" width="18" height="18" rx="4" fill="{c}"/>'
+                  for i, c in enumerate(palette))
+        + txt(238, 314, "Mais", 11, MUTED)
+    )
+    return base(700, 344, "Calendário de atividade",
+                "30 dias de registros · fuso de Alagoas (UTC−3)", body)
+
+# These levels are original to this README; they are NOT WakaTime leaderboards.
+LEVELS = (
+    (0, "Novato", "#94a3b8"),
+    (25, "Explorador", "#38bdf8"),
+    (100, "Artesão", "#34d399"),
+    (250, "Especialista", "#a78bfa"),
+    (500, "Veterano", "#f59e0b"),
+    (1000, "Mestre", "#eab308"),
+    (2500, "Lenda", "#fb7185"),
+)
 
 
-def generate_cards(month, week, summaries, leader, today):
+def level_for_hours(hours):
+    hours = max(0, float(hours))
+    idx = max(i for i, (minimum, _, _) in enumerate(LEVELS) if hours >= minimum)
+    min_hours, name, color = LEVELS[idx]
+    next_hours = LEVELS[idx + 1][0] if idx + 1 < len(LEVELS) else None
+    progress = (min(1, (hours - min_hours) / (next_hours - min_hours))
+                if next_hours else 1.0)
+    # Stars indicate completion of the CURRENT tier, not GitHub/WakaTime ratings.
+    stars = 5 if next_hours is None else min(5, int(progress * 5))
+    return idx, name, color, next_hours, progress, stars
+
+
+def star_path(cx, cy, outer=8, inner=3.7):
+    points = []
+    for i in range(10):
+        angle = math.pi * (-0.5 + i / 5)
+        radius = outer if i % 2 == 0 else inner
+        points.append((cx + radius * math.cos(angle), cy + radius * math.sin(angle)))
+    return "M " + " L ".join(f"{x:.2f} {y:.2f}" for x, y in points) + " Z"
+
+
+def stars_svg(x, y, count, color, radius=8, gap=24):
+    return "".join(
+        f'<path d="{star_path(x + n*gap, y, radius, radius*0.47)}" '
+        f'fill="{color if n < count else "#293544"}" '
+        f'stroke="{color if n < count else "#445160"}" stroke-width="0.7"/>'
+        for n in range(5)
+    )
+
+
+def insignia_svg(level_idx, color, x=34, y=90, scale=1):
+    # The badge is an original shield-and-star vector icon.
+    mark = str(level_idx + 1).zfill(2)
+    return (f'<g transform="translate({x} {y}) scale({scale})">'
+            '<path d="M 60 4 L 113 24 L 110 91 Q 99 119 60 138 '
+            'Q 21 119 10 91 L 7 24 Z" fill="#151e2a" '
+            f'stroke="{color}" stroke-width="2.6"/>'
+            '<path d="M 60 16 L 100 31 L 98 87 Q 88 108 60 126 '
+            'Q 32 108 22 87 L 20 31 Z" fill="#202b38" stroke="#435265" stroke-width="1"/>'
+            f'<path d="{star_path(60, 49, 22, 9.3)}" fill="{color}"/>'
+            + txt(60, 100, mark, 18, "#e6edf3", 700, "middle")
+            + '</g>')
+
+
+def lifetime_card(lifetime, month, week):
+    data = lifetime.get("data")
+    if not isinstance(data, dict) or not isinstance(data.get("total_seconds"), (float, int)):
+        raise RuntimeError("WakaTime não forneceu total histórico verificável")
+    total = max(0, float(data["total_seconds"]))
+    idx, name, color, next_hours, progress, filled = level_for_hours(total / 3600)
+    bars = 232 * progress
+    progression = (f"Próximo: {next_hours:,}h".replace(",", ".")
+                   if next_hours else "Patamar máximo desta edição")
+    body = (
+        insignia_svg(idx, color, 31, 92, 1.05)
+        + txt(193, 113, "CLASSIFICAÇÃO PRÓPRIA · POR HORAS", 11, MUTED, 700)
+        + txt(193, 149, name, 28, color, 700)
+        + stars_svg(205, 176, filled, color, 9, 25)
+        + txt(193, 209, "Horas desde a criação da conta", 12, MUTED)
+        + txt(193, 246, words(total), 30, TEXT, 700)
+        + '<rect x="194" y="265" width="232" height="7" rx="3.5" fill="#26313d"/>'
+        + f'<rect x="194" y="265" width="{bars:.1f}" height="7" rx="3.5" fill="{color}"/>'
+        + txt(193, 287, progression, 11, MUTED)
+        + '<path d="M 447 95 V 271" stroke="#25303d"/>'
+        + txt(472, 119, "ÚLTIMOS 30 DIAS", 11, MUTED, 700)
+        + txt(472, 155, words(month.get("total_seconds") or 0), 22, TEXT, 700)
+        + txt(472, 213, "ÚLTIMOS 7 DIAS", 11, MUTED, 700)
+        + txt(472, 248, words(week.get("total_seconds") or 0), 22, TEXT, 700)
+    )
+    return base(700, 309, "Tempo total & evolução",
+                "WakaTime + sistema de progressão personalizado", body)
+
+
+def rank_emblem(lifetime):
+    data = lifetime.get("data")
+    if not isinstance(data, dict) or not isinstance(data.get("total_seconds"), (float, int)):
+        raise RuntimeError("Sem dados verificados para o emblema")
+    idx, name, color, _, _, filled = level_for_hours(float(data["total_seconds"]) / 3600)
+    body = (insignia_svg(idx, color, 37, 82, 0.85)
+            + txt(96, 213, name, 16, color, 700, "middle")
+            + stars_svg(55, 238, filled, color, 6.4, 20))
+    return base(192, 259, "Emblema", "Nível por horas", body)
+
+def generate_cards(month, week, summaries, leader, today, lifetime=None):
     days = summaries.get("data")
     if not isinstance(days, list):
         raise RuntimeError("Formato inesperado das atividades diárias")
     stats30, stats7 = month.get("data"), week.get("data")
     if not isinstance(stats30, dict) or not isinstance(stats7, dict):
         raise RuntimeError("Formato inesperado das estatísticas")
-    daily = {((entry.get("range") or {}).get("date")):
+    daily = {(entry.get("range") or {}).get("date"):
              float((entry.get("grand_total") or {}).get("total_seconds") or 0)
              for entry in days}
     cards = {
@@ -202,12 +311,14 @@ def generate_cards(month, week, summaries, leader, today):
         "weekly_ranking.svg": rank_card(leader, stats7),
         "heatmap.svg": heat_card(days, today),
     }
+    if lifetime is not None:
+        cards["lifetime.svg"] = lifetime_card(lifetime, stats30, stats7)
+        cards["rank_emblem.svg"] = rank_emblem(lifetime)
     for filename, content in cards.items():
         if "Card Error" in content or "Heatmap Error" in content:
             raise RuntimeError("Gerador inválido: " + filename)
         ET.fromstring(content)
     return cards
-
 
 def main():
     token = os.environ.get("WAKATIME_OAUTH_TOKEN", "").strip()
@@ -219,6 +330,7 @@ def main():
     timezone = ZoneInfo("America/Maceio")
     today = dt.datetime.now(timezone).date()
     month = api("users/current/stats/last_30_days", token)
+    lifetime = api("users/current/all_time_since_today", token)
     week = api("users/current/stats/last_7_days", token)
     summaries = api("users/current/summaries", token, {
         "start": (today - dt.timedelta(days=29)).isoformat(), "end": today.isoformat(),
@@ -230,11 +342,11 @@ def main():
         leader = api("leaders", token)
     except RuntimeError:
         leader = None
-    cards = generate_cards(month, week, summaries, leader, today)
+    cards = generate_cards(month, week, summaries, leader, today, lifetime)
     OUT.mkdir(parents=True, exist_ok=True)
     for filename, svg in cards.items():
         (OUT / filename).write_text(svg, encoding="utf-8")
-    print("4 SVGs gerados e validados a partir da API oficial do WakaTime.")
+    print(f"{len(cards)} SVGs gerados e validados a partir da API oficial do WakaTime.")
 
 
 if __name__ == "__main__":
