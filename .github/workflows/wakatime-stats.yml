@@ -49,7 +49,7 @@ jobs:
           from pathlib import Path
           import xml.etree.ElementTree as ET
           for name in ["all_projs_bar_vertical.svg", "spedometer.svg",
-                       "weekly_ranking.svg", "heatmap.svg"]:
+                       "weekly_ranking.svg", "heatmap.svg", "lifetime.svg", "rank_emblem.svg"]:
               file = Path("wakatime") / name
               content = file.read_text(encoding="utf-8")
               ET.fromstring(content)
@@ -63,7 +63,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -- wakatime/all_projs_bar_vertical.svg wakatime/spedometer.svg wakatime/weekly_ranking.svg wakatime/heatmap.svg
+          git add -- wakatime/all_projs_bar_vertical.svg wakatime/spedometer.svg wakatime/weekly_ranking.svg wakatime/heatmap.svg wakatime/lifetime.svg wakatime/rank_emblem.svg
           if git diff --cached --quiet; then
             echo "Nenhuma mudança nos gráficos."
             exit 0
@@ -77,10 +77,10 @@ jobs:
           path = Path("README.md")
           text = path.read_text(encoding="utf-8")
           version = datetime.now(timezone.utc).strftime("%Y%m%d%H%M%S")
-          pattern = r"(wakatime/(?:all_projs_bar_vertical|spedometer|weekly_ranking|heatmap)\.svg)(?:\?v=\d+)?"
+          pattern = r"(wakatime/(?:all_projs_bar_vertical|spedometer|weekly_ranking|heatmap|lifetime|rank_emblem)\.svg)(?:\?v=\d+)?"
           text, count = re.subn(pattern, lambda m: f"{m.group(1)}?v={version}", text)
-          if count != 4:
-              raise SystemExit(f"Esperava atualizar 4 referências SVG, encontradas: {count}")
+          if count != 6:
+              raise SystemExit(f"Esperava atualizar 6 referências SVG, encontradas: {count}")
           path.write_text(text, encoding="utf-8")
           PY
           git add -- README.md
