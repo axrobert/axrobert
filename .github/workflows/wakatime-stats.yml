@@ -90,6 +90,8 @@ jobs:
           text = path.read_text(encoding="utf-8")
           version = datetime.now(timezone.utc).strftime("%Y%m%d%H%M%S")
           pattern = r"(wakatime/(?:all_projs_bar_vertical|spedometer|weekly_ranking|heatmap|lifetime|rank_emblem)\.(?:svg|png))(?:\?v=\d+)?"
+          # Switch the README to the PNG only after a validated raster is ready.
+          text = text.replace("wakatime/lifetime.svg?v=", "wakatime/lifetime.png?v=")
           text, count = re.subn(pattern, lambda m: f"{m.group(1)}?v={version}", text)
           if count != 5:
               raise SystemExit(f"Esperava atualizar 5 referências SVG, encontradas: {count}")
