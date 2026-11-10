@@ -56,3 +56,26 @@ class WakaTimeCardTests(unittest.TestCase):
         self.assertNotIn("<script", svg)
         self.assertIn("&lt;script", svg)
         ET.fromstring(svg)
+
+    def test_lifetime_rank_and_badges(self):
+        lifetime = {"data": {"total_seconds": 3600 * 145}}
+        cards = module.generate_cards(self.month, self.week, self.summaries,
+                                      None, self.today, lifetime)
+        self.assertEqual(len(cards), 6)
+        self.assertIn("145h 00min", cards["lifetime.svg"])
+        self.assertIn("Artesão", cards["lifetime.svg"])
+        self.assertIn("Artesão", cards["rank_emblem.svg"])
+        for card in cards.values():
+            ET.fromstring(card)
+
+    def test_custom_rank_thresholds(self):
+        self.assertEqual(module.level_for_hours(0)[1], "Novato")
+        self.assertEqual(module.level_for_hours(100)[1], "Artesão")
+        self.assertEqual(module.level_for_hours(2500)[1], "Lenda")
+        self.assertEqual(module.level_for_hours(2500)[5], 5)
+
+    def test_invalid_lifetime_rejected(self):
+        with self.assertRaises(RuntimeError):
+            module.generate_cards(self.month, self.week, self.summaries,
+                                  None, self.today, {"data": {}})
+
