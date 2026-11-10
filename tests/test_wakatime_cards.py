@@ -98,7 +98,7 @@ class WakaTimeCardTests(unittest.TestCase):
         cards=module.generate_cards(self.month,self.week,self.summaries,None,self.today,
                                     {"data":{"total_seconds":3600*350}})
         self.assertIn("linearGradient",cards["lifetime.svg"])
-        self.assertIn("M 79 210",cards["spedometer.svg"])
+        self.assertIn("M 91 218",cards["spedometer.svg"])
 
     def test_rejects_stale_thirty_day_data_as_historical(self):
         lifetime = {"data": {"total_seconds": 152*3600}}
@@ -145,4 +145,18 @@ class WakaTimeCardTests(unittest.TestCase):
                 self.assertEqual(card.size,(1400,618))
             with Image.open(emblem) as image:
                 self.assertEqual(image.size,(320,320))
+
+    def test_paired_cards_equal_geometry_and_baselines(self):
+        """Both GitHub profile cards must have identical boxes and footer rules."""
+        pairs = (module.speed_card(3600, 1800), module.rank_card(
+            {"current_user": {"rank": 8937}}, {"total_seconds": 3600}))
+        svg_ns = "{http://www.w3.org/2000/svg}"
+        for svg in pairs:
+            root = ET.fromstring(svg)
+            self.assertEqual(root.attrib["width"], "350")
+            self.assertEqual(root.attrib["height"], "300")
+            self.assertEqual(root.attrib["viewBox"], "0 0 350 300")
+            self.assertIn('M 28 251 H 322', svg)
+            self.assertIn('y="280"', svg)
+        self.assertIn("#8937", pairs[1])
 
