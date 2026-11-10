@@ -129,37 +129,41 @@ def arc(cx, cy, r, fraction):
             f'fill="none" stroke="{GREEN}" stroke-width="13" stroke-linecap="round"/>')
 
 def speed_card(today_seconds, daily_avg):
-    # The gauge text sits below the arch apex, isolated from the meter stroke.
+    """Paired card: same viewBox and shared vertical anchors as ranking."""
     fraction = min(1.0, max(0.0, today_seconds / (8 * 3600)))
+    cx, cy, radius = 175, 218, 84
     body = (
-        '<path d="M 79 210 A 86 86 0 0 1 251 210" fill="none" '
-        'stroke="#24303b" stroke-width="13" stroke-linecap="round"/>'
-        + arc(165, 210, 86, fraction)
-        + txt(165, 175, words(today_seconds), 25, TEXT, 700, "middle")
-        + txt(165, 197, "registrado hoje", 12, MUTED, 400, "middle")
-        + '<path d="M 26 242 H 304" stroke="#25303d"/>'
-        + txt(27, 270, "Média por dia ativo", 11, MUTED)
-        + txt(304, 270, words(daily_avg), 12, TEXT, 700, "end")
+        f'<path d="M {cx-radius} {cy} A {radius} {radius} 0 0 1 {cx+radius} {cy}" '
+        'fill="none" stroke="#24303b" stroke-width="13" stroke-linecap="round"/>'
+        + arc(cx, cy, radius, fraction)
+        + txt(cx, 179, words(today_seconds), 26, TEXT, 700, "middle")
+        + txt(cx, 201, "registrado hoje", 12, MUTED, 400, "middle")
+        + '<path d="M 28 251 H 322" stroke="#25303d"/>'
+        + txt(28, 280, "Média por dia ativo", 11, MUTED)
+        + txt(322, 280, words(daily_avg), 12, TEXT, 700, "end")
     )
-    return base(330, 293, "Atividade", "Hoje · meta visual de 8h", body)
+    return base(350, 300, "Atividade", "Hoje · meta visual de 8h", body)
+
 
 def rank_card(leader, week):
+    """Official public position only; matched baseline and footer with Activity."""
     current = (leader or {}).get("current_user") or {}
     position = current.get("rank")
     verified = isinstance(position, int) and not isinstance(position, bool) and position > 0
     label = f"#{position}" if verified else "—"
     body = (
         txt(28, 125, "CLASSIFICAÇÃO OFICIAL", 11, MUTED, 700)
-        + txt(28, 178, label, 46, GREEN if verified else MUTED, 700)
-        + txt(28, 200, "Sua posição no WakaTime" if verified
+        + txt(28, 179, label, 46, GREEN if verified else MUTED, 700)
+        + txt(28, 201, "Sua posição no WakaTime" if verified
               else "Sem posição pública confirmada", 12, MUTED)
-        + '<path d="M 27 220 H 330" stroke="#25303d"/>'
-        + txt(28, 249, "Últimos 7 dias", 12, MUTED)
-        + txt(330, 249, words(week.get("total_seconds") or 0),
-              14, TEXT, 700, "end")
+        + '<path d="M 28 251 H 322" stroke="#25303d"/>'
+        + txt(28, 280, "Últimos 7 dias", 11, MUTED)
+        + txt(322, 280, words(week.get("total_seconds") or 0),
+              12, TEXT, 700, "end")
     )
-    return base(360, 271, "Ranking semanal",
-                "Ranking público oficial · sem pontuação fictícia", body)
+    return base(350, 300, "Ranking semanal",
+                "Ranking público oficial do WakaTime", body)
+
 
 def heat_card(summaries, today):
     by_date = {}
