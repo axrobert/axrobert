@@ -1,6 +1,13 @@
 name: 💥 WakaTime Update Stats
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/generate_wakatime_cards.py'
+      - 'scripts/render_rank_png.py'
+      - 'assets/badges/*.png'
+      - '.github/workflows/wakatime-stats.yml'
   schedule:
     - cron: "0 */6 * * *"
   workflow_dispatch:
