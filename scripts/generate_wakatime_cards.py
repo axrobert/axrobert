@@ -366,6 +366,8 @@ def main():
     verified_historical_stats(all_languages, lifetime)
     cards = generate_cards(month, week, summaries, leader, today, lifetime, all_languages)
     OUT.mkdir(parents=True, exist_ok=True)
+    rank_number = level_for_hours(float(lifetime["data"]["total_seconds"]) / 3600)[0]
+    (OUT / ".rank-level").write_text(str(rank_number), encoding="ascii")
     for filename, svg in cards.items():
         (OUT / filename).write_text(svg, encoding="utf-8")
     print(f"{len(cards)} SVGs gerados e validados a partir da API oficial do WakaTime.")
