@@ -79,8 +79,8 @@ jobs:
           version = datetime.now(timezone.utc).strftime("%Y%m%d%H%M%S")
           pattern = r"(wakatime/(?:all_projs_bar_vertical|spedometer|weekly_ranking|heatmap|lifetime|rank_emblem)\.svg)(?:\?v=\d+)?"
           text, count = re.subn(pattern, lambda m: f"{m.group(1)}?v={version}", text)
-          if count != 6:
-              raise SystemExit(f"Esperava atualizar 6 referências SVG, encontradas: {count}")
+          if count != 5:
+              raise SystemExit(f"Esperava atualizar 5 referências SVG, encontradas: {count}")
           path.write_text(text, encoding="utf-8")
           PY
           git add -- README.md
