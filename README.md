@@ -105,14 +105,18 @@ A maioria do design, estrutura e artes neste repositório foram criados por mim 
 </div>
 <img align="center" src="https://github.com/Harlocks/design/blob/main/assets/inkscape/separators/Line.png?raw=true"> <!-- SEPARADOR -->
 
-<img src="./wakatime/all_projs_bar_vertical.svg?v=202611101640" width="100%">
+<p align="center">
+  <img src="wakatime/all_projs_bar_vertical.svg?v=202611101743" width="100%" alt="Linguagens de programação nos últimos 30 dias">
+</p>
 
-<div style="display: flex;" align="center">
-    <img src="wakatime/spedometer.svg?v=202611101640" height="290" width="300" alt="Spedometer"/>
-    <img src="wakatime/weekly_ranking.svg?v=202611101640" height="630" width="530" alt="Weekly Ranking"/> <!-- altura reduzida -->
-</div>
+<p align="center">
+  <img src="wakatime/spedometer.svg?v=202611101743" width="47%" alt="Atividade de programação">
+  <img src="wakatime/weekly_ranking.svg?v=202611101743" width="51%" alt="Ranking semanal WakaTime">
+</p>
 
-<img src="wakatime/heatmap.svg?v=202611101640" height="700" width="1200" alt="Heatmap - axrobert"/>
+<p align="center">
+  <img src="wakatime/heatmap.svg?v=202611101743" width="100%" alt="Calendário de atividade WakaTime">
+</p>
 
 
 <!-- <p align="center">

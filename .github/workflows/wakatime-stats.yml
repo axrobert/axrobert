@@ -68,5 +68,21 @@ jobs:
             echo "Nenhuma mudança nos gráficos."
             exit 0
           fi
+          # Only refresh GitHub's rendered image cache after verified SVG changes.
+          python - <<'PY'
+          from datetime import datetime, timezone
+          from pathlib import Path
+          import re
+
+          path = Path("README.md")
+          text = path.read_text(encoding="utf-8")
+          version = datetime.now(timezone.utc).strftime("%Y%m%d%H%M%S")
+          pattern = r"(wakatime/(?:all_projs_bar_vertical|spedometer|weekly_ranking|heatmap)\.svg)(?:\?v=\d+)?"
+          text, count = re.subn(pattern, lambda m: f"{m.group(1)}?v={version}", text)
+          if count != 4:
+              raise SystemExit(f"Esperava atualizar 4 referências SVG, encontradas: {count}")
+          path.write_text(text, encoding="utf-8")
+          PY
+          git add -- README.md
           git commit -m "chore(wakatime): update validated activity cards"
           git push
