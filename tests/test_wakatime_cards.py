@@ -1,9 +1,11 @@
 import datetime as dt
 import importlib.util
+import sys
 from pathlib import Path
 import unittest
 import xml.etree.ElementTree as ET
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 spec = importlib.util.spec_from_file_location(
     "wakatime_cards", Path(__file__).resolve().parents[1] /
     "scripts/generate_wakatime_cards.py")
@@ -79,3 +81,21 @@ class WakaTimeCardTests(unittest.TestCase):
             module.generate_cards(self.month, self.week, self.summaries,
                                   None, self.today, {"data": {}})
 
+
+    def test_historical_language_stats_override_30_days(self):
+        historic={"data":{"total_seconds":3600*250,"languages":[{"name":"Rust","total_seconds":3600*240}]}}
+        cards=module.generate_cards(self.month,self.week,self.summaries,None,self.today,
+                                    {"data":{"total_seconds":3600*300}}, historic)
+        self.assertIn("Histórico completo registrado",cards["all_projs_bar_vertical.svg"])
+        self.assertIn("Rust",cards["all_projs_bar_vertical.svg"])
+        self.assertNotIn("TypeScript",cards["all_projs_bar_vertical.svg"])
+        self.assertIn("250h",cards["all_projs_bar_vertical.svg"])
+
+    def test_badge_sigils_and_gauge_spacing(self):
+        from rank_art import standalone
+        for level in range(7):
+            ET.fromstring(standalone(level))
+        cards=module.generate_cards(self.month,self.week,self.summaries,None,self.today,
+                                    {"data":{"total_seconds":3600*350}})
+        self.assertIn("linearGradient",cards["lifetime.svg"])
+        self.assertIn("M 79 210",cards["spedometer.svg"])

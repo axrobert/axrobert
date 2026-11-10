@@ -19,6 +19,7 @@ import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
 from zoneinfo import ZoneInfo
+from rank_art import rank_svg
 
 BASE = "https://api.wakatime.com/api/v1"
 OUT = pathlib.Path("wakatime")
@@ -86,7 +87,7 @@ def base(width, height, title, subtitle, body):
     return svg + "\n"
 
 
-def languages_card(stats):
+def languages_card(stats, all_time=False):
     items = sorted(stats.get("languages") or [],
                    key=lambda v: float(v.get("total_seconds") or 0),
                    reverse=True)[:10]
@@ -114,7 +115,7 @@ def languages_card(stats):
             txt(527, y, f"{pct:.1f}%", 11, MUTED),
             txt(668, y, words(sec), 12, TEXT, 600, "end"),
         ])
-    return base(700, 480, "Linguagens", "Últimos 30 dias · tempo registrado pelo WakaTime",
+    return base(700, 480, "Linguagens", "Histórico completo registrado · WakaTime" if all_time else "Últimos 30 dias · tempo registrado pelo WakaTime",
                 "".join(parts))
 
 def arc(cx, cy, r, fraction):
@@ -128,19 +129,19 @@ def arc(cx, cy, r, fraction):
             f'fill="none" stroke="{GREEN}" stroke-width="13" stroke-linecap="round"/>')
 
 def speed_card(today_seconds, daily_avg):
-    # Visual gauge scale: eight hours, not an official WakaTime score.
+    # The gauge text sits below the arch apex, isolated from the meter stroke.
     fraction = min(1.0, max(0.0, today_seconds / (8 * 3600)))
     body = (
-        '<path d="M 81 194 A 84 84 0 0 1 249 194" fill="none" '
+        '<path d="M 79 210 A 86 86 0 0 1 251 210" fill="none" '
         'stroke="#24303b" stroke-width="13" stroke-linecap="round"/>'
-        + arc(165, 194, 84, fraction)
-        + txt(165, 162, words(today_seconds), 25, TEXT, 700, "middle")
-        + txt(165, 186, "registrado hoje", 12, MUTED, 400, "middle")
-        + '<path d="M 26 220 H 304" stroke="#25303d"/>'
-        + txt(27, 249, "Média por dia ativo", 11, MUTED)
-        + txt(304, 249, words(daily_avg), 12, TEXT, 700, "end")
+        + arc(165, 210, 86, fraction)
+        + txt(165, 175, words(today_seconds), 25, TEXT, 700, "middle")
+        + txt(165, 197, "registrado hoje", 12, MUTED, 400, "middle")
+        + '<path d="M 26 242 H 304" stroke="#25303d"/>'
+        + txt(27, 270, "Média por dia ativo", 11, MUTED)
+        + txt(304, 270, words(daily_avg), 12, TEXT, 700, "end")
     )
-    return base(330, 271, "Atividade", "Hoje · meta visual de 8h", body)
+    return base(330, 293, "Atividade", "Hoje · meta visual de 8h", body)
 
 def rank_card(leader, week):
     current = (leader or {}).get("current_user") or {}
@@ -242,18 +243,8 @@ def stars_svg(x, y, count, color, radius=8, gap=24):
 
 
 def insignia_svg(level_idx, color, x=34, y=90, scale=1):
-    # The badge is an original shield-and-star vector icon.
-    mark = str(level_idx + 1).zfill(2)
-    return (f'<g transform="translate({x} {y}) scale({scale})">'
-            '<path d="M 60 4 L 113 24 L 110 91 Q 99 119 60 138 '
-            'Q 21 119 10 91 L 7 24 Z" fill="#151e2a" '
-            f'stroke="{color}" stroke-width="2.6"/>'
-            '<path d="M 60 16 L 100 31 L 98 87 Q 88 108 60 126 '
-            'Q 32 108 22 87 L 20 31 Z" fill="#202b38" stroke="#435265" stroke-width="1"/>'
-            f'<path d="{star_path(60, 49, 22, 9.3)}" fill="{color}"/>'
-            + txt(60, 100, mark, 18, "#e6edf3", 700, "middle")
-            + '</g>')
-
+    """Embed a tier-specific original 2.5D AXR rank sigil."""
+    return rank_svg(level_idx, x, y, float(scale)*0.70)
 
 def lifetime_card(lifetime, month, week):
     data = lifetime.get("data")
@@ -294,7 +285,7 @@ def rank_emblem(lifetime):
             + stars_svg(55, 238, filled, color, 6.4, 20))
     return base(192, 259, "Emblema", "Nível por horas", body)
 
-def generate_cards(month, week, summaries, leader, today, lifetime=None):
+def generate_cards(month, week, summaries, leader, today, lifetime=None, all_languages=None):
     days = summaries.get("data")
     if not isinstance(days, list):
         raise RuntimeError("Formato inesperado das atividades diárias")
@@ -305,7 +296,8 @@ def generate_cards(month, week, summaries, leader, today, lifetime=None):
              float((entry.get("grand_total") or {}).get("total_seconds") or 0)
              for entry in days}
     cards = {
-        "all_projs_bar_vertical.svg": languages_card(stats30),
+        "all_projs_bar_vertical.svg": languages_card(all_languages["data"], all_time=True)
+        if all_languages is not None else languages_card(stats30),
         "spedometer.svg": speed_card(daily.get(today.isoformat(), 0),
                                     float(stats7.get("daily_average") or 0)),
         "weekly_ranking.svg": rank_card(leader, stats7),
@@ -330,6 +322,7 @@ def main():
     timezone = ZoneInfo("America/Maceio")
     today = dt.datetime.now(timezone).date()
     month = api("users/current/stats/last_30_days", token)
+    all_languages = api("users/current/stats/all_time", token)
     lifetime = api("users/current/all_time_since_today", token)
     week = api("users/current/stats/last_7_days", token)
     summaries = api("users/current/summaries", token, {
@@ -342,7 +335,7 @@ def main():
         leader = api("leaders", token)
     except RuntimeError:
         leader = None
-    cards = generate_cards(month, week, summaries, leader, today, lifetime)
+    cards = generate_cards(month, week, summaries, leader, today, lifetime, all_languages)
     OUT.mkdir(parents=True, exist_ok=True)
     for filename, svg in cards.items():
         (OUT / filename).write_text(svg, encoding="utf-8")
