@@ -65,15 +65,15 @@ class WakaTimeCardTests(unittest.TestCase):
                                       None, self.today, lifetime)
         self.assertEqual(len(cards), 6)
         self.assertIn("145h 00min", cards["lifetime.svg"])
-        self.assertIn("Artesão", cards["lifetime.svg"])
-        self.assertIn("Artesão", cards["rank_emblem.svg"])
+        self.assertIn("Aprendiz", cards["lifetime.svg"])
+        self.assertIn("Aprendiz", cards["rank_emblem.svg"])
         for card in cards.values():
             ET.fromstring(card)
 
     def test_custom_rank_thresholds(self):
-        self.assertEqual(module.level_for_hours(0)[1], "Novato")
-        self.assertEqual(module.level_for_hours(100)[1], "Artesão")
-        self.assertEqual(module.level_for_hours(2500)[1], "Lenda")
+        self.assertEqual(module.level_for_hours(0)[1], "Iniciante")
+        self.assertEqual(module.level_for_hours(100)[1], "Aprendiz")
+        self.assertEqual(module.level_for_hours(2500)[1], "Arquiteto")
         self.assertEqual(module.level_for_hours(2500)[5], 5)
 
     def test_invalid_lifetime_rejected(self):
@@ -97,7 +97,7 @@ class WakaTimeCardTests(unittest.TestCase):
             ET.fromstring(standalone(level))
         cards=module.generate_cards(self.month,self.week,self.summaries,None,self.today,
                                     {"data":{"total_seconds":3600*350}})
-        self.assertIn("linearGradient",cards["lifetime.svg"])
+        self.assertIn("data:image/png;base64,",cards["lifetime.svg"])
         self.assertIn("M 91 218",cards["spedometer.svg"])
 
     def test_rejects_stale_thirty_day_data_as_historical(self):
@@ -139,12 +139,22 @@ class WakaTimeCardTests(unittest.TestCase):
             source.write_text(svg,encoding="utf-8")
             output=root/"lifetime.png"
             emblem=root/"emblem.png"
-            badges=Path(__file__).resolve().parents[1]/"assets/badges"
+            badges=Path(__file__).resolve().parents[1]/"assets/badges/current"
             render(source,2,badges,output,emblem)
             with Image.open(output) as card:
                 self.assertEqual(card.size,(1400,618))
             with Image.open(emblem) as image:
                 self.assertEqual(image.size,(320,320))
+
+    def test_twelve_real_rank_boundaries(self):
+        self.assertEqual(len(module.RANKS), 12)
+        for i, rank in enumerate(module.RANKS):
+            self.assertEqual(module.level_for_hours(rank['min_hours'])[0], i)
+            self.assertEqual(module.level_for_hours(rank['min_hours'])[1], rank['name'])
+            self.assertIn('data:image/png;base64,', module.insignia_svg(i, rank['color']))
+            if rank['max_hours_exclusive'] is not None:
+                self.assertEqual(module.level_for_hours(rank['max_hours_exclusive']-0.01)[0], i)
+        self.assertEqual(module.level_for_hours(8000)[1], 'Soberano')
 
     def test_paired_cards_equal_geometry_and_baselines(self):
         """Both GitHub profile cards must have identical boxes and footer rules."""
