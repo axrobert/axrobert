@@ -7,6 +7,7 @@ on:
       - 'scripts/generate_wakatime_cards.py'
       - 'scripts/render_rank_png.py'
       - 'assets/badges/*.png'
+      - 'assets/badges/current/**'
       - '.github/workflows/wakatime-stats.yml'
   schedule:
     - cron: "0 */6 * * *"
@@ -74,7 +75,7 @@ jobs:
           python scripts/render_rank_png.py \
             --card wakatime/lifetime.svg \
             --tier-file wakatime/.rank-level \
-            --assets assets/badges \
+            --assets assets/badges/current \
             --output wakatime/lifetime.png \
             --emblem-output wakatime/rank_emblem.png
 
