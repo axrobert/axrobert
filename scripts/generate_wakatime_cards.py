@@ -7,6 +7,8 @@ request never overwrites the last successful SVGs.
 from __future__ import annotations
 
 import datetime as dt
+import base64
+from functools import lru_cache
 import html
 import json
 import math
@@ -19,7 +21,6 @@ import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
 from zoneinfo import ZoneInfo
-from rank_art import rank_svg
 
 BASE = "https://api.wakatime.com/api/v1"
 OUT = pathlib.Path("wakatime")
@@ -204,17 +205,14 @@ def heat_card(summaries, today):
     return base(700, 344, "Calendário de atividade",
                 "30 dias de registros · fuso de Alagoas (UTC−3)", body)
 
-# These levels are original to this README; they are NOT WakaTime leaderboards.
-LEVELS = (
-    (0, "Novato", "#94a3b8"),
-    (25, "Explorador", "#38bdf8"),
-    (100, "Artesão", "#34d399"),
-    (250, "Especialista", "#a78bfa"),
-    (500, "Veterano", "#f59e0b"),
-    (1000, "Mestre", "#eab308"),
-    (2500, "Lenda", "#fb7185"),
-)
+# Canonical tiers shared with AXR Stats; not the official WakaTime leaderboard.
+RANKS = json.loads((pathlib.Path(__file__).resolve().parents[1] / "assets/badges/current/ranks.json").read_text(encoding="utf-8"))
+LEVELS = tuple((r["min_hours"], r["name"], r["color"]) for r in RANKS)
 
+@lru_cache(maxsize=12)
+def rank_png_base64(index):
+    path = pathlib.Path(__file__).resolve().parents[1] / "assets/badges/current" / RANKS[index]["png"]
+    return base64.b64encode(path.read_bytes()).decode("ascii")
 
 def level_for_hours(hours):
     hours = max(0, float(hours))
@@ -247,8 +245,10 @@ def stars_svg(x, y, count, color, radius=8, gap=24):
 
 
 def insignia_svg(level_idx, color, x=34, y=90, scale=1):
-    """Embed a tier-specific original 2.5D AXR rank sigil."""
-    return rank_svg(level_idx, x, y, float(scale)*0.70)
+    """Display the supplied rank artwork, never the outdated vector shield."""
+    size = 160 * float(scale)
+    return (f'<image x="{x}" y="{y}" width="{size:.1f}" height="{size:.1f}" '
+            f'href="data:image/png;base64,{rank_png_base64(level_idx)}"/>')
 
 def lifetime_card(lifetime, month, week):
     data = lifetime.get("data")
