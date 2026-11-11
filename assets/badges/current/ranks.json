@@ -1,0 +1,134 @@
+[
+  {
+    "tier": 1,
+    "slug": "01-iniciante",
+    "name": "Iniciante",
+    "name_en": "Beginner",
+    "min_hours": 0,
+    "max_hours_exclusive": 50,
+    "color": "#d9985b",
+    "png": "01-iniciante.png",
+    "svg": "01-iniciante.svg"
+  },
+  {
+    "tier": 2,
+    "slug": "02-aprendiz",
+    "name": "Aprendiz",
+    "name_en": "Apprentice",
+    "min_hours": 50,
+    "max_hours_exclusive": 150,
+    "color": "#a9b7e6",
+    "png": "02-aprendiz.png",
+    "svg": "02-aprendiz.svg"
+  },
+  {
+    "tier": 3,
+    "slug": "03-estudante",
+    "name": "Estudante",
+    "name_en": "Student",
+    "min_hours": 150,
+    "max_hours_exclusive": 300,
+    "color": "#f5b741",
+    "png": "03-estudante.png",
+    "svg": "03-estudante.svg"
+  },
+  {
+    "tier": 4,
+    "slug": "04-desenvolvedor",
+    "name": "Desenvolvedor",
+    "name_en": "Developer",
+    "min_hours": 300,
+    "max_hours_exclusive": 500,
+    "color": "#8eaee2",
+    "png": "04-desenvolvedor.png",
+    "svg": "04-desenvolvedor.svg"
+  },
+  {
+    "tier": 5,
+    "slug": "05-especialista",
+    "name": "Especialista",
+    "name_en": "Specialist",
+    "min_hours": 500,
+    "max_hours_exclusive": 800,
+    "color": "#adc4e7",
+    "png": "05-especialista.png",
+    "svg": "05-especialista.svg"
+  },
+  {
+    "tier": 6,
+    "slug": "06-avancado",
+    "name": "Avançado",
+    "name_en": "Advanced",
+    "min_hours": 800,
+    "max_hours_exclusive": 1200,
+    "color": "#efb34f",
+    "png": "06-avancado.png",
+    "svg": "06-avancado.svg"
+  },
+  {
+    "tier": 7,
+    "slug": "07-elite",
+    "name": "Elite",
+    "name_en": "Elite",
+    "min_hours": 1200,
+    "max_hours_exclusive": 1800,
+    "color": "#b481ec",
+    "png": "07-elite.png",
+    "svg": "07-elite.svg"
+  },
+  {
+    "tier": 8,
+    "slug": "08-mestre",
+    "name": "Mestre",
+    "name_en": "Master",
+    "min_hours": 1800,
+    "max_hours_exclusive": 2500,
+    "color": "#6bc2e8",
+    "png": "08-mestre.png",
+    "svg": "08-mestre.svg"
+  },
+  {
+    "tier": 9,
+    "slug": "09-arquiteto",
+    "name": "Arquiteto",
+    "name_en": "Architect",
+    "min_hours": 2500,
+    "max_hours_exclusive": 3500,
+    "color": "#4bd0f6",
+    "png": "09-arquiteto.png",
+    "svg": "09-arquiteto.svg"
+  },
+  {
+    "tier": 10,
+    "slug": "10-sabio",
+    "name": "Sábio",
+    "name_en": "Sage",
+    "min_hours": 3500,
+    "max_hours_exclusive": 5000,
+    "color": "#b080e1",
+    "png": "10-sabio.png",
+    "svg": "10-sabio.svg"
+  },
+  {
+    "tier": 11,
+    "slug": "11-lendario",
+    "name": "Lendário",
+    "name_en": "Legendary",
+    "min_hours": 5000,
+    "max_hours_exclusive": 8000,
+    "color": "#a47df6",
+    "png": "11-lendario.png",
+    "svg": "11-lendario.svg"
+  },
+  {
+    "tier": 12,
+    "slug": "12-soberano",
+    "name": "Soberano",
+    "name_en": "Sovereign",
+    "min_hours": 8000,
+    "max_hours_exclusive": null,
+    "color": "#ffca53",
+    "png": "12-soberano.png",
+    "svg": "12-soberano.svg"
+  }
+]
