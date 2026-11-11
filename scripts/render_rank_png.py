@@ -15,16 +15,15 @@ from xml.etree import ElementTree as ET
 import cairosvg
 from PIL import Image, ImageDraw
 
-RANKS = (
-    '01-novice.png', '02-explorer.png', '03-artisan.png',
-    '04-specialist.png', '05-veteran.png', '06-master.png',
-    '07-legend.png',
-)
+import json
+RANKS = tuple(r["png"] for r in json.loads(
+    (Path(__file__).resolve().parents[1]/"assets/badges/current/ranks.json").read_text(encoding="utf-8")
+))
 
 
 def render(card: Path, tier: int, assets: Path, output: Path, emblem_output: Path) -> None:
     if not 0 <= tier < len(RANKS):
-        raise ValueError('Rank index must be between 0 and 6')
+        raise ValueError('Rank index must be between 0 and 11')
     badge_path = assets / RANKS[tier]
     if not badge_path.is_file():
         raise FileNotFoundError(f'Rank PNG not found: {badge_path}')
@@ -65,7 +64,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument('--card', type=Path, required=True)
     parser.add_argument('--tier-file', type=Path, required=True)
-    parser.add_argument('--assets', type=Path, default=Path('assets/badges'))
+    parser.add_argument('--assets', type=Path, default=Path('assets/badges/current'))
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--emblem-output', type=Path, required=True)
     args = parser.parse_args()
