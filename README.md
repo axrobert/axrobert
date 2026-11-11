@@ -105,22 +105,6 @@ A maioria do design, estrutura e artes neste repositório foram criados por mim 
 </div>
 <img align="center" src="https://github.com/Harlocks/design/blob/main/assets/inkscape/separators/Line.png?raw=true"> <!-- SEPARADOR -->
 
-<!-- AXR Stats / corrected 12-tier collection -->
-<div align="center">
-
-### AXR Stats — Ranks por horas de programação
-
-Emblemas de 12 níveis, com arte revisada e estatísticas oficiais do WakaTime.
-Os níveis são personalizados do AXR Stats, não posições oficiais do WakaTime.
-
-<a href="https://axrobert.github.io/axr-stats/#ranks"><img src="assets/badges/current/03-estudante.png" width="90" height="90" alt="Emblema Estudante — nível 03"></a>
-<a href="https://axrobert.github.io/axr-stats/#ranks"><img src="assets/badges/current/07-elite.png" width="90" height="90" alt="Emblema Elite — nível 07 corrigido"></a>
-<a href="https://axrobert.github.io/axr-stats/#ranks"><img src="assets/badges/current/12-soberano.png" width="90" height="90" alt="Emblema Soberano — nível 12"></a>
-
-[Galeria completa](https://axrobert.github.io/axr-stats/#ranks) · [Personalizar temas](https://axrobert.github.io/axr-stats/customize/) · [Roadmap](https://axrobert.github.io/axr-stats/roadmap/) · [Repositório AXR Stats](https://github.com/axrobert/axr-stats)
-
-</div>
-
 <p align="center">
   <img src="wakatime/lifetime.png?v=20261111132916" width="100%" alt="Horas totais registradas e progressão personalizada de nível">
 </p>
