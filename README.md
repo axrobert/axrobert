@@ -117,7 +117,7 @@ Os níveis são personalizados do AXR Stats, não posições oficiais do WakaTim
 <a href="https://axrobert.github.io/axr-stats/#ranks"><img src="assets/badges/current/07-elite.png" width="90" height="90" alt="Emblema Elite — nível 07 corrigido"></a>
 <a href="https://axrobert.github.io/axr-stats/#ranks"><img src="assets/badges/current/12-soberano.png" width="90" height="90" alt="Emblema Soberano — nível 12"></a>
 
-[Galeria completa](https://axrobert.github.io/axr-stats/#ranks) · [Roadmap](https://axrobert.github.io/axr-stats/roadmap/) · [Repositório AXR Stats](https://github.com/axrobert/axr-stats)
+[Galeria completa](https://axrobert.github.io/axr-stats/#ranks) · [Personalizar temas](https://axrobert.github.io/axr-stats/customize/) · [Roadmap](https://axrobert.github.io/axr-stats/roadmap/) · [Repositório AXR Stats](https://github.com/axrobert/axr-stats)
 
 </div>
 
