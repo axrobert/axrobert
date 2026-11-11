@@ -1,0 +1,83 @@
+name: AXR Stats — External Consumer Smoke
+
+# Runs only on this trusted repository's main branch (or manual dispatch).
+# It NEVER publishes output to the profile, and is not triggered by PR code.
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/axr-action-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: axr-stats-external-smoke
+  cancel-in-progress: false
+
+jobs:
+  verify-external-action:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify OAuth is configured (never print its value)
+        env:
+          HAS_WAKATIME_OAUTH: ${{ secrets.WAKATIME_OAUTH_TOKEN != '' }}
+        run: |
+          if [ "$HAS_WAKATIME_OAUTH" != 'true' ]; then
+            echo "::error::WAKATIME_OAUTH_TOKEN is missing from Actions secrets."
+            exit 1
+          fi
+
+      - name: Consume AXR Stats from an immutable product commit
+        uses: axrobert/axr-stats@913185763c3a1ab0fde2391a5259edb144b5a36b
+        with:
+          wakatime-oauth-token: ${{ secrets.WAKATIME_OAUTH_TOKEN }}
+          timezone: America/Maceio
+          theme: aurora
+          output: ci/axr-stats-smoke
+
+      - name: Validate all externally generated outputs
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+          from PIL import Image
+
+          output = Path('ci/axr-stats-smoke')
+          names = ('lifetime.svg', 'languages.svg', 'activity.svg',
+                   'ranking.svg', 'heatmap.svg', 'emblem.svg')
+          for name in names:
+              path = output / name
+              if not path.is_file() or path.stat().st_size < 100:
+                  raise SystemExit('Missing/empty SVG: ' + name)
+              root = ET.parse(path).getroot()
+              if root.tag != '{http://www.w3.org/2000/svg}svg':
+                  raise SystemExit('Malformed SVG: ' + name)
+              print('Valid SVG:', name)
+          for name in ('lifetime.png', 'emblem.png'):
+              path = output / name
+              if not path.is_file():
+                  raise SystemExit('Missing PNG: ' + name)
+              with Image.open(path) as image:
+                  image.verify()
+              print('Valid PNG:', name)
+          if (output / '.rank-level').exists():
+              raise SystemExit('Internal rank metadata leaked into public output')
+          print('External consumer smoke: all 8 published images valid.')
+          PY
+
+      - name: Assert that no generated files or changes are committed
+        run: |
+          if [ -n "$(git status --porcelain --untracked-files=no)" ]; then
+            echo "::error::Smoke test changed tracked profile files."
+            exit 1
+          fi
+          echo "Profile repository unchanged. Generated output was temporary and uncommitted."
