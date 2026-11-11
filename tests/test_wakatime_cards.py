@@ -74,7 +74,8 @@ class WakaTimeCardTests(unittest.TestCase):
         self.assertEqual(module.level_for_hours(0)[1], "Iniciante")
         self.assertEqual(module.level_for_hours(100)[1], "Aprendiz")
         self.assertEqual(module.level_for_hours(2500)[1], "Arquiteto")
-        self.assertEqual(module.level_for_hours(2500)[5], 5)
+        self.assertEqual(module.level_for_hours(2500)[5], 0)
+        self.assertEqual(module.level_for_hours(8000)[5], 5)
 
     def test_invalid_lifetime_rejected(self):
         with self.assertRaises(RuntimeError):
