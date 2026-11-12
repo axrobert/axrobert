@@ -106,20 +106,20 @@ A maioria do design, estrutura e artes neste repositório foram criados por mim 
 <img align="center" src="https://github.com/Harlocks/design/blob/main/assets/inkscape/separators/Line.png?raw=true"> <!-- SEPARADOR -->
 
 <p align="center">
-  <img src="wakatime/lifetime.png?v=20261111235935" width="100%" alt="Horas totais registradas e progressão personalizada de nível">
+  <img src="wakatime/lifetime.png?v=20261112065832" width="100%" alt="Horas totais registradas e progressão personalizada de nível">
 </p>
 
 <p align="center">
-  <img src="wakatime/all_projs_bar_vertical.svg?v=20261111235935" width="100%" alt="Linguagens do histórico completo registrado no WakaTime">
+  <img src="wakatime/all_projs_bar_vertical.svg?v=20261112065832" width="100%" alt="Linguagens do histórico completo registrado no WakaTime">
 </p>
 
 <p align="center">
-  <img src="wakatime/spedometer.svg?v=20261111235935" width="49%" alt="Atividade de programação">
-  <img src="wakatime/weekly_ranking.svg?v=20261111235935" width="49%" alt="Ranking semanal WakaTime">
+  <img src="wakatime/spedometer.svg?v=20261112065832" width="49%" alt="Atividade de programação">
+  <img src="wakatime/weekly_ranking.svg?v=20261112065832" width="49%" alt="Ranking semanal WakaTime">
 </p>
 
 <p align="center">
-  <img src="wakatime/heatmap.svg?v=20261111235935" width="100%" alt="Calendário de atividade WakaTime">
+  <img src="wakatime/heatmap.svg?v=20261112065832" width="100%" alt="Calendário de atividade WakaTime">
 </p>
 
 
